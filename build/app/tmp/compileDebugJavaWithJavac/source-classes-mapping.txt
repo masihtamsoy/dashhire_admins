@@ -1,0 +1,4 @@
+io/flutter/plugins/GeneratedPluginRegistrant.java
+ io.flutter.plugins.GeneratedPluginRegistrant
+io/supabase/supabase_demo/BuildConfig.java
+ io.supabase.supabase_demo.BuildConfig
