@@ -9,12 +9,12 @@ part of 'applications_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ApplicationStore on _ApplicationStore, Store {
-  Computed<int>? _$total_itemsComputed;
+  Computed<int>? _$totalItemsComputed;
 
   @override
-  int get total_items =>
-      (_$total_itemsComputed ??= Computed<int>(() => super.total_items,
-              name: '_ApplicationStore.total_items'))
+  int get totalItems =>
+      (_$totalItemsComputed ??= Computed<int>(() => super.totalItems,
+              name: '_ApplicationStore.totalItems'))
           .value;
 
   final _$valueAtom = Atom(name: '_ApplicationStore.value');
@@ -77,7 +77,7 @@ mixin _$ApplicationStore on _ApplicationStore, Store {
     return '''
 value: ${value},
 selectedItem: ${selectedItem},
-total_items: ${total_items}
+totalItems: ${totalItems}
     ''';
   }
 }

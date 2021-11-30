@@ -21,15 +21,15 @@ abstract class _ApplicationStore with Store {
   Map? selectedItem;
 
   @computed
-  int get total_items => data.length;
+  int get totalItems => data.length;
 
   Map getItem(int index) {
     dynamic item = {};
-    if (index < total_items) {
+    if (index < totalItems) {
       item = data[index];
     }
 
-    print("---getitem-------${index}");
+    print("---getitem-------$index");
     return item as Map;
   }
 
@@ -41,7 +41,7 @@ abstract class _ApplicationStore with Store {
   @action
   void selectItem(Map item) {
     selectedItem = item;
-    print("---item-------${item}");
+    print("---item-------$item");
   }
 
   Future getApplicationListing(String jobId) async {
