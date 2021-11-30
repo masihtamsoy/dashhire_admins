@@ -1,8 +1,11 @@
 import 'package:dash_widget/dash_widget.dart';
-import 'package:dash_widget/store/jobs_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
+
+import 'package:dash_widget/store/jobs_store.dart';
+import '../store/applications_store.dart';
+import 'package:dash_widget/store/jobs_store.dart';
 
 class ApplicationsListingScreen extends StatefulWidget {
   @override
@@ -20,19 +23,31 @@ class _ApplicationsListingScreenState extends State<ApplicationsListingScreen> {
       ),
       body: Column(
         children: [
-          const JobStoreWidgetWrapper(),
-          const Text(
-            'JobsStore value in example/main initial',
-          ),
-          Text(
-            '${Provider.of<JobsStore>(context, listen: false).value}',
-            style: Theme.of(context).textTheme.headline4,
-          ),
           Observer(
               builder: (_) => Text(
-                    '${Provider.of<JobsStore>(context, listen: false).value} dynamic Jobs store value in example/main',
-                    style: const TextStyle(fontSize: 40),
+                    '${Provider.of<ApplicationStore>(context, listen: false).selectedItem}',
+                    style: const TextStyle(fontSize: 30),
                   )),
+
+          Observer(
+              builder: (_) => Text(
+                    '${Provider.of<JobsStore>(context, listen: false).selectedJob}',
+                    style: const TextStyle(fontSize: 20),
+                  )),
+
+          // const JobStoreWidgetWrapper(),
+          // const Text(
+          //   'JobsStore value in example/main initial',
+          // ),
+          // Text(
+          //   '${Provider.of<ApplicationStore>(context, listen: false).selectedItem}',
+          //   style: Theme.of(context).textTheme.headline4,
+          // ),
+          // Observer(
+          //     builder: (_) => Text(
+          //           '${Provider.of<JobsStore>(context, listen: false).value} dynamic Jobs store value in example/main',
+          //           style: const TextStyle(fontSize: 40),
+          //         )),
         ],
       ),
     );
