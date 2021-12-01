@@ -1,6 +1,7 @@
 // Store
-import 'package:dash_widget/store/jobs_store.dart';
-import './store/applications_store.dart';
+import 'package:dash_widget/store/listing_store.dart';
+import 'store/applications_store.dart';
+import 'store/dash_store.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -22,15 +23,16 @@ Future main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final JobsStore _jobsStore = JobsStore();
-  final ApplicationStore _applicationStore = ApplicationStore();
+  final ListingStore _listingStore = ListingStore();
+  final DashStore _dashStore = DashStore();
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<JobsStore>(create: (_) => _jobsStore),
-        Provider<ApplicationStore>(create: (_) => _applicationStore),
+        Provider<ListingStore>(create: (_) => _listingStore),
+        Provider<DashStore>(create: (_) => _dashStore),
       ],
       child: Observer(
           name: 'global-observer',
@@ -42,8 +44,8 @@ class MyApp extends StatelessWidget {
               routes: <String, WidgetBuilder>{
                 '/signIn': (_) => SignInScreen(),
                 '/profile': (_) => ProfileScreen(),
-                '/jobs': (_) => JobsListingScreen(),
-                '/second': (_) => ApplicationsListingScreen(),
+                '/job': (_) => JobsListingScreen(),
+                '/application': (_) => ApplicationsListingScreen(),
               },
               onGenerateRoute: generateRoute,
             );

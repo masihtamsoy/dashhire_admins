@@ -10,7 +10,7 @@ class AuthState<T extends StatefulWidget> extends SupabaseAuthState<T> {
 
   @override
   void onAuthenticated(supabase.Session session) {
-    Navigator.pushNamedAndRemoveUntil(context, '/jobs', (route) => false);
+    Navigator.pushNamedAndRemoveUntil(context, '/job', (route) => false);
   }
 
   @override
@@ -22,5 +22,6 @@ class AuthState<T extends StatefulWidget> extends SupabaseAuthState<T> {
   @override
   void onErrorAuthenticating(String message) {
     print('***** onErrorAuthenticating: $message');
+    // Navigator.pushNamedAndRemoveUntil(context, '/signIn', (route) => false);
   }
 }

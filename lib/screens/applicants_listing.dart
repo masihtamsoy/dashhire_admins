@@ -4,8 +4,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 import 'package:dash_widget/store/jobs_store.dart';
-import '../store/applications_store.dart';
-import 'package:dash_widget/store/jobs_store.dart';
+import '../store/dash_store.dart';
 
 class ApplicationsListingScreen extends StatefulWidget {
   @override
@@ -23,17 +22,23 @@ class _ApplicationsListingScreenState extends State<ApplicationsListingScreen> {
       ),
       body: Column(
         children: [
-          Observer(
-              builder: (_) => Text(
-                    '${Provider.of<ApplicationStore>(context, listen: false).selectedItem}',
-                    style: const TextStyle(fontSize: 30),
-                  )),
+          ListingUiStoreWizard(
+              mode: "application",
+              pushRouteName: '/job',
+              getCallbackStore: () =>
+                  Provider.of<DashStore>(context, listen: false).value),
 
-          Observer(
-              builder: (_) => Text(
-                    '${Provider.of<JobsStore>(context, listen: false).selectedJob}',
-                    style: const TextStyle(fontSize: 20),
-                  )),
+          // Observer(
+          //     builder: (_) => Text(
+          //           '${Provider.of<ApplicationStore>(context, listen: false).selectedItem}',
+          //           style: const TextStyle(fontSize: 30),
+          //         )),
+
+          // Observer(
+          //     builder: (_) => Text(
+          //           '${Provider.of<JobsStore>(context, listen: false).selectedJob}',
+          //           style: const TextStyle(fontSize: 20),
+          //         )),
 
           // const JobStoreWidgetWrapper(),
           // const Text(

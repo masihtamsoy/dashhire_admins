@@ -188,7 +188,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "2572595430bc3ab60118167fd9292dd538d346bc"
+      resolved-ref: cf6a7353880843a79607cce1ad6a398c89b4b713
       url: "https://github.com/masihtamsoy/dash_widget.git"
     source: git
     version: "0.0.1"
@@ -673,7 +673,7 @@ packages:
       name: supabase_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.6"
+    version: "0.2.9"
   term_glyph:
     dependency: transitive
     description:
