@@ -1,4 +1,4 @@
-package io.supabase.supabase_demo
+package com.dashhire.dashhire_admins
 
 import io.flutter.embedding.android.FlutterActivity
 
