@@ -194,7 +194,7 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: HEAD
+      ref: stable
       resolved-ref: a6d1986c778f76a1d819d0bb998ae0c333661667
       url: "https://github.com/masihtamsoy/dash_widget.git"
     source: git

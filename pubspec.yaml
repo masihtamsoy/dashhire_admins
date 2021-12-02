@@ -34,7 +34,10 @@ dependencies:
   flutter_mobx: ^2.0.0
 
   dash_widget:
-    git: https://github.com/masihtamsoy/dash_widget.git
+    git:
+      url: https://github.com/masihtamsoy/dash_widget.git
+      ref: stable
+
 
 dev_dependencies:
   flutter_launcher_icons: ^0.9.0
