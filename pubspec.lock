@@ -188,7 +188,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: cf6a7353880843a79607cce1ad6a398c89b4b713
+      resolved-ref: a6d1986c778f76a1d819d0bb998ae0c333661667
       url: "https://github.com/masihtamsoy/dash_widget.git"
     source: git
     version: "0.0.1"

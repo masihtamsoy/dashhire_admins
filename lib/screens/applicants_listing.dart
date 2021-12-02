@@ -18,42 +18,27 @@ class _ApplicationsListingScreenState extends State<ApplicationsListingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Application'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pushNamedAndRemoveUntil(
+              context, '/job', (route) => false),
+        ),
+        title: Text("Application"),
+        centerTitle: true,
       ),
-      body: Column(
-        children: [
-          ListingUiStoreWizard(
-              mode: "application",
-              pushRouteName: '/job',
-              getCallbackStore: () =>
-                  Provider.of<DashStore>(context, listen: false).value),
-
-          // Observer(
-          //     builder: (_) => Text(
-          //           '${Provider.of<ApplicationStore>(context, listen: false).selectedItem}',
-          //           style: const TextStyle(fontSize: 30),
-          //         )),
-
-          // Observer(
-          //     builder: (_) => Text(
-          //           '${Provider.of<JobsStore>(context, listen: false).selectedJob}',
-          //           style: const TextStyle(fontSize: 20),
-          //         )),
-
-          // const JobStoreWidgetWrapper(),
-          // const Text(
-          //   'JobsStore value in example/main initial',
-          // ),
-          // Text(
-          //   '${Provider.of<ApplicationStore>(context, listen: false).selectedItem}',
-          //   style: Theme.of(context).textTheme.headline4,
-          // ),
-          // Observer(
-          //     builder: (_) => Text(
-          //           '${Provider.of<JobsStore>(context, listen: false).value} dynamic Jobs store value in example/main',
-          //           style: const TextStyle(fontSize: 40),
-          //         )),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ListingUiStoreWizard(
+                dependencyState:
+                    Provider.of<DashStore>(context, listen: false).jobSelected,
+                mode: "application",
+                pushRouteName: '/job',
+                getCallbackStore: () {
+                  return Provider.of<DashStore>(context, listen: false);
+                }),
+          ],
+        ),
       ),
     );
   }
