@@ -41,8 +41,12 @@ class SplashScreenState extends AuthState<SplashScreen>
       body: Center(
         child: SizedBox(
           height: 50.0,
-          child: Image.asset(
-            "assets/images/logo-dark.png",
+          child: Text(
+            "Dashhire Admins",
+            style: TextStyle(
+                color: Colors.grey[800],
+                fontWeight: FontWeight.bold,
+                fontSize: 40),
           ),
         ),
       ),

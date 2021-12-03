@@ -47,6 +47,7 @@ class MyApp extends StatelessWidget {
                 '/job': (_) => JobsListingScreen(),
                 '/application': (_) => ApplicationsListingScreen(),
               },
+              debugShowCheckedModeBanner: false,
               onGenerateRoute: generateRoute,
             );
           }),
