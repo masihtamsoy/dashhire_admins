@@ -5,12 +5,19 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import '../store/dash_store.dart';
 
-class JobsListingScreen extends StatefulWidget {
+class ListingScreen extends StatefulWidget {
+  final String mode;
+  final String pushRouteName;
+
+  ListingScreen(
+      {Key? key, this.mode = 'job', this.pushRouteName = '/application'})
+      : super(key: key);
+
   @override
-  _JobsListingScreenState createState() => _JobsListingScreenState();
+  _ListingScreenState createState() => _ListingScreenState();
 }
 
-class _JobsListingScreenState extends State<JobsListingScreen> {
+class _ListingScreenState extends State<ListingScreen> {
   // job = Provider<context._jobsStore>.selectedItem
   // DashStore.selectJob(job);
   // DashStore.selectApplication(application);
@@ -25,13 +32,30 @@ class _JobsListingScreenState extends State<JobsListingScreen> {
         child: Column(
           children: [
             ListingUiStoreWizard(
-                mode: "job",
-                pushRouteName: '/application',
-                getCallbackStore: () {
-                  return Provider.of<DashStore>(context, listen: false);
-                }
-                // Provider.of<DashStore>(context, listen: false)
-                ),
+              mode: widget.mode,
+              pushRouteName: widget.pushRouteName,
+              getCallbackStore: () {
+                return Provider.of<DashStore>(context, listen: false);
+              },
+
+              /// Write comment
+              dependencyState: widget.mode == "candidate"
+                  ? Provider.of<DashStore>(context, listen: false)
+                      .companyRoleSelected
+                  : null,
+              // Provider.of<DashStore>(context, listen: false)
+            ),
+            // const Text(
+            //   'JobsStore value in example/main initial',
+            // ),
+            Text(
+              '${Provider.of<ListingStore>(context, listen: false).data}',
+            ),
+            // Observer(
+            //     builder: (_) => Text(
+            //           '${Provider.of<JobsStore>(context, listen: false).data} dynamic Jobs store value in example/main',
+            //           style: const TextStyle(fontSize: 40),
+            //         )),
           ],
         ),
       ),

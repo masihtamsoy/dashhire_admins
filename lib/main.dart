@@ -44,8 +44,13 @@ class MyApp extends StatelessWidget {
               routes: <String, WidgetBuilder>{
                 '/signIn': (_) => SignInScreen(),
                 '/profile': (_) => ProfileScreen(),
-                '/job': (_) => JobsListingScreen(),
+                // '/job': (_) => ListingScreen(),
+                '/job': (_) => ListingScreen(
+                    mode: 'company_role', pushRouteName: '/candidates_page'),
                 '/application': (_) => ApplicationsListingScreen(),
+                '/candidates_page': (_) => ListingScreen(
+                      mode: 'candidate',
+                    ),
               },
               debugShowCheckedModeBanner: false,
               onGenerateRoute: generateRoute,
