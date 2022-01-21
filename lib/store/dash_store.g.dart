@@ -40,6 +40,22 @@ mixin _$DashStore on DashStoreBase, Store {
     });
   }
 
+  final _$companyRoleSelectedAtom =
+      Atom(name: 'DashStoreBase.companyRoleSelected');
+
+  @override
+  Map<dynamic, dynamic>? get companyRoleSelected {
+    _$companyRoleSelectedAtom.reportRead();
+    return super.companyRoleSelected;
+  }
+
+  @override
+  set companyRoleSelected(Map<dynamic, dynamic>? value) {
+    _$companyRoleSelectedAtom.reportWrite(value, super.companyRoleSelected, () {
+      super.companyRoleSelected = value;
+    });
+  }
+
   final _$valueAtom = Atom(name: 'DashStoreBase.value');
 
   @override
@@ -92,10 +108,22 @@ mixin _$DashStore on DashStoreBase, Store {
   }
 
   @override
+  void selectCompanyRole(Map<dynamic, dynamic> companyRole) {
+    final _$actionInfo = _$DashStoreBaseActionController.startAction(
+        name: 'DashStoreBase.selectCompanyRole');
+    try {
+      return super.selectCompanyRole(companyRole);
+    } finally {
+      _$DashStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 jobSelected: ${jobSelected},
 applicationSelected: ${applicationSelected},
+companyRoleSelected: ${companyRoleSelected},
 value: ${value}
     ''';
   }

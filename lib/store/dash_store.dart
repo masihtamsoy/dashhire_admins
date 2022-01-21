@@ -12,6 +12,9 @@ abstract class DashStoreBase with Store {
   Map? applicationSelected;
 
   @observable
+  Map? companyRoleSelected;
+
+  @observable
   int value = 0;
 
   @action
@@ -29,5 +32,11 @@ abstract class DashStoreBase with Store {
   void selectApplication(Map application) {
     print("-----applicationSelected------- $application");
     applicationSelected = application;
+  }
+
+  @action
+  void selectCompanyRole(Map companyRole) {
+    print("-----companyRoleSelected------- $companyRole");
+    companyRoleSelected = companyRole;
   }
 }
