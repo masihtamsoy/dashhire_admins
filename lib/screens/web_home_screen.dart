@@ -29,7 +29,7 @@ class _WebHomeScreenState extends AuthState<WebHomeScreen>
 
   Future onSignIn() async {
     final hasAccessToken = await SupabaseAuth.instance.hasAccessToken;
-    final String route = hasAccessToken ? '/jobs' : '/signIn';
+    final String route = hasAccessToken ? '/admins' : '/signIn';
 
     stopAuthObserver();
     Navigator.pushNamed(context, route).then((_) => startAuthObserver());

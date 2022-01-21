@@ -10,7 +10,7 @@ class AuthState<T extends StatefulWidget> extends SupabaseAuthState<T> {
 
   @override
   void onAuthenticated(supabase.Session session) {
-    Navigator.pushNamedAndRemoveUntil(context, '/job', (route) => false);
+    Navigator.pushNamedAndRemoveUntil(context, '/admins', (route) => false);
   }
 
   @override

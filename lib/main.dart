@@ -15,6 +15,7 @@ import 'screens/profile_screen.dart';
 import 'screens/signin_screen.dart';
 import 'screens/splash_screen.dart';
 import 'screens/web_home_screen.dart';
+import 'screens/admin_listing.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,8 +45,11 @@ class MyApp extends StatelessWidget {
               routes: <String, WidgetBuilder>{
                 '/signIn': (_) => SignInScreen(),
                 '/profile': (_) => ProfileScreen(),
-                // '/job': (_) => ListingScreen(),
-                '/job': (_) => ListingScreen(
+                '/admins': (_) => AdminListing(),
+                '/job': (_) => ListingScreen(),
+                '/calling_page': (_) => ListingScreen(
+                    mode: 'company_role', pushRouteName: '/candidates_page'),
+                '/client_page': (_) => ListingScreen(
                     mode: 'company_role', pushRouteName: '/candidates_page'),
                 '/application': (_) => ApplicationsListingScreen(),
                 '/candidates_page': (_) => ListingScreen(
