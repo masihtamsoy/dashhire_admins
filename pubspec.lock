@@ -195,7 +195,7 @@ packages:
     description:
       path: "."
       ref: ats
-      resolved-ref: "384e12a438f2e59e538811c23545b2ca4504dc07"
+      resolved-ref: ec3af05f714975baf6b149353e350f64860b0535
       url: "https://github.com/masihtamsoy/dash_widget.git"
     source: git
     version: "0.0.1"
@@ -570,7 +570,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.1"
+    version: "6.0.2"
   pub_semver:
     dependency: transitive
     description:

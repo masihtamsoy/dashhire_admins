@@ -8,16 +8,22 @@ import '../store/dash_store.dart';
 class ListingScreen extends StatefulWidget {
   final String mode;
   final String pushRouteName;
+  final String popRouteName;
+  final String title;
 
   ListingScreen(
-      {Key? key, this.mode = 'job', this.pushRouteName = '/application'})
+      {Key? key,
+      this.mode = 'job',
+      this.pushRouteName = '',
+      this.popRouteName = '',
+      this.title = ''})
       : super(key: key);
 
   @override
-  _ListingScreenState createState() => _ListingScreenState();
+  _JobsListingScreenState createState() => _JobsListingScreenState();
 }
 
-class _ListingScreenState extends State<ListingScreen> {
+class _JobsListingScreenState extends State<ListingScreen> {
   // job = Provider<context._jobsStore>.selectedItem
   // DashStore.selectJob(job);
   // DashStore.selectApplication(application);
@@ -26,31 +32,41 @@ class _ListingScreenState extends State<ListingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Jobs'),
+        leading: widget.popRouteName != ''
+            ? IconButton(
+                icon: Icon(Icons.arrow_back, color: Colors.black),
+                onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                    context, widget.popRouteName, (route) => false),
+              )
+            : null,
+        title: Text(widget.title),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             ListingUiStoreWizard(
-              mode: widget.mode,
-              pushRouteName: widget.pushRouteName,
-              getCallbackStore: () {
-                return Provider.of<DashStore>(context, listen: false);
-              },
+                mode: widget.mode,
+                pushRouteName: widget.pushRouteName,
+                getCallbackStore: () {
+                  return Provider.of<DashStore>(context, listen: false);
+                },
 
-              /// Write comment
-              dependencyState: widget.mode == "candidate"
-                  ? Provider.of<DashStore>(context, listen: false)
-                      .companyRoleSelected
-                  : null,
-              // Provider.of<DashStore>(context, listen: false)
-            ),
+                /// Dependent state (selected item) from orevious step
+                dependencyState: widget.mode == "candidate"
+                    ? Provider.of<DashStore>(context, listen: false)
+                        .companyRoleSelected
+                    : widget.mode == 'application'
+                        ? Provider.of<DashStore>(context, listen: false)
+                            .jobSelected
+                        : null
+                // Provider.of<DashStore>(context, listen: false)
+                ),
             // const Text(
             //   'JobsStore value in example/main initial',
             // ),
-            Text(
-              '${Provider.of<ListingStore>(context, listen: false).data}',
-            ),
+            // Text(
+            //   '${Provider.of<ListingStore>(context, listen: false).data}',
+            // ),
             // Observer(
             //     builder: (_) => Text(
             //           '${Provider.of<JobsStore>(context, listen: false).data} dynamic Jobs store value in example/main',

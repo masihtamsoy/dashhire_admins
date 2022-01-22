@@ -46,15 +46,31 @@ class MyApp extends StatelessWidget {
                 '/signIn': (_) => SignInScreen(),
                 '/profile': (_) => ProfileScreen(),
                 '/admins': (_) => AdminListing(),
-                '/job': (_) => ListingScreen(),
+                '/job': (_) => ListingScreen(
+                    mode: 'job',
+                    title: 'Jobs',
+                    pushRouteName: '/application',
+                    popRouteName: '/admins'),
+                // '/application': (_) => ApplicationsListingScreen(),
+                '/application': (_) => ListingScreen(
+                    mode: 'application',
+                    popRouteName: '/job',
+                    title: 'Application'),
+
                 '/calling_page': (_) => ListingScreen(
-                    mode: 'company_role', pushRouteName: '/candidates_page'),
+                    mode: 'company_role',
+                    pushRouteName: '/candidates_page',
+                    title: 'Calling Page',
+                    popRouteName: '/admins'),
                 '/client_page': (_) => ListingScreen(
-                    mode: 'company_role', pushRouteName: '/candidates_page'),
-                '/application': (_) => ApplicationsListingScreen(),
+                    mode: 'company_role',
+                    pushRouteName: '/candidates_page',
+                    title: 'Client Page',
+                    popRouteName: '/admins'),
                 '/candidates_page': (_) => ListingScreen(
-                      mode: 'candidate',
-                    ),
+                    mode: 'candidate',
+                    title: 'Candidates Page',
+                    popRouteName: '/admins'),
               },
               debugShowCheckedModeBanner: false,
               onGenerateRoute: generateRoute,
