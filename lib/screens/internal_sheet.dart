@@ -36,27 +36,27 @@ class _InternalSheetState extends State<InternalSheet> {
       field: 'currentDesignation',
       type: PlutoColumnType.text(),
     ),
-    // PlutoColumn(
-    //   title: 'Current Company',
-    //   field: 'currentCompany',
-    //   type: PlutoColumnType.text(),
-    // ),
-    // PlutoColumn(
-    //   title: 'Mobile',
-    //   field: 'mobile',
-    //   type: PlutoColumnType.text(),
-    // ),
-    // PlutoColumn(
-    //   title: 'Status',
-    //   field: 'status',
-    //   type: PlutoColumnType.select(<String>[
-    //     'Interested',
-    //     'Required JD',
-    //     'JD sent',
-    //     'Could not connect',
-    //     'Call later'
-    //   ]),
-    // ),
+    PlutoColumn(
+      title: 'Current Company',
+      field: 'currentCompany',
+      type: PlutoColumnType.text(),
+    ),
+    PlutoColumn(
+      title: 'Mobile',
+      field: 'mobile',
+      type: PlutoColumnType.text(),
+    ),
+    PlutoColumn(
+      title: 'Status',
+      field: 'status',
+      type: PlutoColumnType.select(<String>[
+        'Interested',
+        'Required JD',
+        'JD sent',
+        'Could not connect',
+        'Call later'
+      ]),
+    ),
     PlutoColumn(
       title: 'Id',
       field: 'id',
@@ -95,6 +95,9 @@ class _InternalSheetState extends State<InternalSheet> {
         'name': PlutoCell(value: 'Mike'),
         'location': PlutoCell(value: 'Delhi'),
         'currentDesignation': PlutoCell(value: 'Software Engineer'),
+        'currentCompany': PlutoCell(value: 'Google'),
+        'mobile': PlutoCell(value: '8011230915'),
+        'status': PlutoCell(value: 'Interested'),
         'id': PlutoCell(value: 'user1'),
         'age': PlutoCell(value: 20),
         'role': PlutoCell(value: 'Programmer'),
@@ -108,6 +111,9 @@ class _InternalSheetState extends State<InternalSheet> {
         'name': PlutoCell(value: 'Jack'),
         'location': PlutoCell(value: 'Delhi'),
         'currentDesignation': PlutoCell(value: 'Software Engineer'),
+        'currentCompany': PlutoCell(value: 'Google'),
+        'mobile': PlutoCell(value: '8011230915'),
+        'status': PlutoCell(value: 'Interested'),
         'id': PlutoCell(value: 'user2'),
         'age': PlutoCell(value: 25),
         'role': PlutoCell(value: 'Designer'),
@@ -121,6 +127,9 @@ class _InternalSheetState extends State<InternalSheet> {
         'name': PlutoCell(value: 'Suzi'),
         'location': PlutoCell(value: 'Delhi'),
         'currentDesignation': PlutoCell(value: 'Software Engineer'),
+        'currentCompany': PlutoCell(value: 'Google'),
+        'mobile': PlutoCell(value: '8011230915'),
+        'status': PlutoCell(value: 'Interested'),
         'id': PlutoCell(value: 'user3'),
         'age': PlutoCell(value: 40),
         'role': PlutoCell(value: 'Owner'),
