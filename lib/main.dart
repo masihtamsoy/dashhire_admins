@@ -16,6 +16,7 @@ import 'screens/signin_screen.dart';
 import 'screens/splash_screen.dart';
 import 'screens/web_home_screen.dart';
 import 'screens/admin_listing.dart';
+import 'screens/internal_sheet.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -71,6 +72,7 @@ class MyApp extends StatelessWidget {
                     mode: 'candidate',
                     title: 'Candidates Page',
                     popRouteName: '/admins'),
+                '/internal_sheet': (_) => InternalSheet()
               },
               debugShowCheckedModeBanner: false,
               onGenerateRoute: generateRoute,
