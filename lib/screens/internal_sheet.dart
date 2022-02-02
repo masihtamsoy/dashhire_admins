@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pluto_grid/pluto_grid.dart';
+import '../dummy_data/development.dart';
 
 class InternalSheet extends StatefulWidget {
   InternalSheet({Key? key}) : super(key: key);
@@ -11,13 +12,54 @@ class InternalSheet extends StatefulWidget {
 class _InternalSheetState extends State<InternalSheet> {
   final List<PlutoColumn> columns = <PlutoColumn>[
     PlutoColumn(
-      title: 'Id',
-      field: 'id',
-      type: PlutoColumnType.text(),
+      title: 'Date Added',
+      field: 'dateAdded',
+      type: PlutoColumnType.date(),
     ),
     PlutoColumn(
       title: 'Name',
       field: 'name',
+      type: PlutoColumnType.text(),
+    ),
+    PlutoColumn(
+      title: 'Location',
+      field: 'location',
+      type: PlutoColumnType.select(<String>[
+        'Delhi',
+        'Bangalore',
+        'Mumbai',
+        'Gurgaon',
+      ]),
+    ),
+    // PlutoColumn(
+    //   title: 'Current Designation',
+    //   field: 'currentDesignation',
+    //   type: PlutoColumnType.text(),
+    // ),
+    // PlutoColumn(
+    //   title: 'Current Company',
+    //   field: 'currentCompany',
+    //   type: PlutoColumnType.text(),
+    // ),
+    // PlutoColumn(
+    //   title: 'Mobile',
+    //   field: 'mobile',
+    //   type: PlutoColumnType.text(),
+    // ),
+    // PlutoColumn(
+    //   title: 'Status',
+    //   field: 'status',
+    //   type: PlutoColumnType.select(<String>[
+    //     'Interested',
+    //     'Required JD',
+    //     'JD sent',
+    //     'Could not connect',
+    //     'Call later'
+    //   ]),
+    // ),
+    PlutoColumn(
+      title: 'Id',
+      field: 'id',
       type: PlutoColumnType.text(),
     ),
     PlutoColumn(
@@ -49,8 +91,10 @@ class _InternalSheetState extends State<InternalSheet> {
   final List<PlutoRow> rows = [
     PlutoRow(
       cells: {
-        'id': PlutoCell(value: 'user1'),
+        'dateAdded': PlutoCell(value: '2021-01-01'),
         'name': PlutoCell(value: 'Mike'),
+        'location': PlutoCell(value: 'Delhi'),
+        'id': PlutoCell(value: 'user1'),
         'age': PlutoCell(value: 20),
         'role': PlutoCell(value: 'Programmer'),
         'joined': PlutoCell(value: '2021-01-01'),
@@ -59,8 +103,10 @@ class _InternalSheetState extends State<InternalSheet> {
     ),
     PlutoRow(
       cells: {
-        'id': PlutoCell(value: 'user2'),
+        'dateAdded': PlutoCell(value: '2021-01-01'),
         'name': PlutoCell(value: 'Jack'),
+        'location': PlutoCell(value: 'Delhi'),
+        'id': PlutoCell(value: 'user2'),
         'age': PlutoCell(value: 25),
         'role': PlutoCell(value: 'Designer'),
         'joined': PlutoCell(value: '2021-02-01'),
@@ -69,8 +115,10 @@ class _InternalSheetState extends State<InternalSheet> {
     ),
     PlutoRow(
       cells: {
-        'id': PlutoCell(value: 'user3'),
+        'dateAdded': PlutoCell(value: '2021-01-01'),
         'name': PlutoCell(value: 'Suzi'),
+        'location': PlutoCell(value: 'Delhi'),
+        'id': PlutoCell(value: 'user3'),
         'age': PlutoCell(value: 40),
         'role': PlutoCell(value: 'Owner'),
         'joined': PlutoCell(value: '2021-03-01'),
@@ -101,7 +149,7 @@ class _InternalSheetState extends State<InternalSheet> {
         child: PlutoGrid(
           columns: columns,
           rows: rows,
-          columnGroups: columnGroups,
+          // columnGroups: columnGroups,
           onLoaded: (PlutoGridOnLoadedEvent event) {
             stateManager = event.stateManager;
           },
