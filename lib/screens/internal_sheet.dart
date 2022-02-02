@@ -31,11 +31,11 @@ class _InternalSheetState extends State<InternalSheet> {
         'Gurgaon',
       ]),
     ),
-    // PlutoColumn(
-    //   title: 'Current Designation',
-    //   field: 'currentDesignation',
-    //   type: PlutoColumnType.text(),
-    // ),
+    PlutoColumn(
+      title: 'Current Designation',
+      field: 'currentDesignation',
+      type: PlutoColumnType.text(),
+    ),
     // PlutoColumn(
     //   title: 'Current Company',
     //   field: 'currentCompany',
@@ -94,6 +94,7 @@ class _InternalSheetState extends State<InternalSheet> {
         'dateAdded': PlutoCell(value: '2021-01-01'),
         'name': PlutoCell(value: 'Mike'),
         'location': PlutoCell(value: 'Delhi'),
+        'currentDesignation': PlutoCell(value: 'Software Engineer'),
         'id': PlutoCell(value: 'user1'),
         'age': PlutoCell(value: 20),
         'role': PlutoCell(value: 'Programmer'),
@@ -106,6 +107,7 @@ class _InternalSheetState extends State<InternalSheet> {
         'dateAdded': PlutoCell(value: '2021-01-01'),
         'name': PlutoCell(value: 'Jack'),
         'location': PlutoCell(value: 'Delhi'),
+        'currentDesignation': PlutoCell(value: 'Software Engineer'),
         'id': PlutoCell(value: 'user2'),
         'age': PlutoCell(value: 25),
         'role': PlutoCell(value: 'Designer'),
@@ -118,6 +120,7 @@ class _InternalSheetState extends State<InternalSheet> {
         'dateAdded': PlutoCell(value: '2021-01-01'),
         'name': PlutoCell(value: 'Suzi'),
         'location': PlutoCell(value: 'Delhi'),
+        'currentDesignation': PlutoCell(value: 'Software Engineer'),
         'id': PlutoCell(value: 'user3'),
         'age': PlutoCell(value: 40),
         'role': PlutoCell(value: 'Owner'),
@@ -150,7 +153,10 @@ class _InternalSheetState extends State<InternalSheet> {
           columns: columns,
           rows: rows,
           // columnGroups: columnGroups,
+
           onLoaded: (PlutoGridOnLoadedEvent event) {
+            event.stateManager.setSelectingMode(PlutoGridSelectingMode.row);
+
             stateManager = event.stateManager;
           },
           onChanged: (PlutoGridOnChangedEvent event) {
