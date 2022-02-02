@@ -37,6 +37,7 @@ dependencies:
       url: https://github.com/masihtamsoy/dash_widget.git
       ref: stable
   pluto_grid: ^2.9.2
+  syncfusion_flutter_datagrid: ^19.4.47
 
   
 
