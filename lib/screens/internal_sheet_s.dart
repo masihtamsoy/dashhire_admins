@@ -9,7 +9,7 @@ class InternalSheetS extends StatefulWidget {
 }
 
 class _InternalSheetSState extends State<InternalSheetS> {
-  List<Employee> employees = <Employee>[];
+  List<Candidate> employees = <Candidate>[];
   late EmployeeDataSource employeeDataSource;
 
   @override
@@ -30,12 +30,12 @@ class _InternalSheetSState extends State<InternalSheetS> {
         columnWidthMode: ColumnWidthMode.fill,
         columns: <GridColumn>[
           GridColumn(
-              columnName: 'id',
+              columnName: 'mobile',
               label: Container(
                   padding: EdgeInsets.all(16.0),
                   alignment: Alignment.center,
                   child: Text(
-                    'ID',
+                    'Mobile',
                   ))),
           GridColumn(
               columnName: 'name',
@@ -44,72 +44,207 @@ class _InternalSheetSState extends State<InternalSheetS> {
                   alignment: Alignment.center,
                   child: Text('Name'))),
           GridColumn(
-              columnName: 'designation',
+              columnName: 'dateAdded',
               label: Container(
                   padding: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
                   child: Text(
-                    'Designation',
+                    'Date Added',
                     overflow: TextOverflow.ellipsis,
                   ))),
           GridColumn(
-              columnName: 'salary',
+              columnName: 'dataSource',
               label: Container(
                   padding: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
-                  child: Text('Salary'))),
+                  child: Text('Data Source'))),
+          GridColumn(
+              columnName: 'Holding CTC',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text('Holding CTC'))),
+          GridColumn(
+              columnName: 'Min Expected CTC',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text('Min Expected CTC'))),
+          GridColumn(
+              columnName: 'Current CTC',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text('Current CTC'))),
+          GridColumn(
+              columnName: 'Highest Degree',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text('Highest Degree'))),
+          GridColumn(
+              columnName: 'Email',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text('Email'))),
+          GridColumn(
+              columnName: 'Job Search Status',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text('Job Search Status'))),
+          GridColumn(
+              columnName: 'Total Exp',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text('Total Exp'))),
+          GridColumn(
+              columnName: 'Current Company Type',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text('Current Company Type'))),
+          GridColumn(
+              columnName: 'Notice Period',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text('Notice Period'))),
+          GridColumn(
+              columnName: 'Current Company',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text('Current Company'))),
+          GridColumn(
+              columnName: 'Resume Link',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text('Resume Link'))),
+          GridColumn(
+              columnName: 'Job Location',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text('Job Location'))),
+          GridColumn(
+              columnName: 'Verified',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text('Verified'))),
+          GridColumn(
+              columnName: 'Job Profile Search Type',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text('Job Profile Search Type'))),
         ],
       ),
     );
   }
 
-  List<Employee> getEmployeeData() {
+  List<Candidate> getEmployeeData() {
     return [
-      Employee(10001, 'James', 'Project Lead', 20000),
-      Employee(10002, 'Kathryn', 'Manager', 30000),
-      Employee(10003, 'Lara', 'Developer', 15000),
-      Employee(10004, 'Michael', 'Designer', 15000),
-      Employee(10005, 'Martin', 'Developer', 15000),
-      Employee(10006, 'Newberry', 'Developer', 15000),
-      Employee(10007, 'Balnc', 'Developer', 15000),
-      Employee(10008, 'Perry', 'Developer', 15000),
-      Employee(10009, 'Gable', 'Developer', 15000),
-      Employee(10010, 'Grimes', 'Developer', 15000)
+      Candidate('8011230914', 'Masih', DateTime(2022), 'naukri'),
+      Candidate('8011230914', 'Masih', DateTime(2022), 'naukri'),
+      Candidate('8011230914', 'Masih', DateTime(2022), 'naukri'),
+      Candidate('8011230914', 'Masih', DateTime(2022), 'naukri'),
+      Candidate('8011230914', 'Masih', DateTime(2022), 'naukri'),
+      Candidate('8011230914', 'Masih', DateTime(2022), 'naukri'),
+      Candidate('8011230914', 'Masih', DateTime(2022), 'naukri'),
+      Candidate('8011230914', 'Masih', DateTime(2022), 'naukri'),
+      Candidate('8011230914', 'Masih', DateTime(2022), 'naukri'),
+      Candidate('8011230914', 'Masih', DateTime(2022), 'naukri'),
     ];
   }
 }
 
 /// Custom business object class which contains properties to hold the detailed
 /// information about the employee which will be rendered in datagrid.
-class Employee {
+class Candidate {
   /// Creates the employee class with required details.
-  Employee(this.id, this.name, this.designation, this.salary);
+  Candidate(this.mobile, this.name, this.dateAdded, this.dataSource);
 
-  /// Id of an employee.
-  final int id;
+  String mobile;
 
-  /// Name of an employee.
-  final String name;
+  String name;
 
-  /// Designation of an employee.
-  final String designation;
+  DateTime dateAdded;
 
-  /// Salary of an employee.
-  final int salary;
+  String dataSource;
+
+  int minExpectedCtc = 0;
+
+  int holdingCtc = 0;
+
+  int currentCtc = 0;
+
+  String highestDegree = "";
+
+  String jobProfileSearchType = "";
+
+  bool verified = false;
+
+  String jobLocation = "";
+
+  String resumeLink = "";
+
+  String currentCompany = "";
+
+  int noticePeriod = 0;
+
+  String currentCompanyType = "";
+
+  int totalExp = 0;
+
+  /// Dropdown
+  String jobSearchStatus = "";
+
+  String email = "";
 }
 
-/// An object to set the employee collection data source to the datagrid. This
-/// is used to map the employee data to the datagrid widget.
+// /// An object to set the employee collection data source to the datagrid. This
+// /// is used to map the employee data to the datagrid widget.
 class EmployeeDataSource extends DataGridSource {
   /// Creates the employee data source class with required details.
-  EmployeeDataSource({required List<Employee> employeeData}) {
+  EmployeeDataSource({required List<Candidate> employeeData}) {
     _employeeData = employeeData
         .map<DataGridRow>((e) => DataGridRow(cells: [
-              DataGridCell<int>(columnName: 'id', value: e.id),
+              DataGridCell<String>(columnName: 'mobile', value: e.mobile),
               DataGridCell<String>(columnName: 'name', value: e.name),
+              DataGridCell<DateTime>(
+                  columnName: 'dateAdded', value: e.dateAdded),
               DataGridCell<String>(
-                  columnName: 'designation', value: e.designation),
-              DataGridCell<int>(columnName: 'salary', value: e.salary),
+                  columnName: 'dataSource', value: e.dataSource),
+              DataGridCell<int>(columnName: 'Holding CTC', value: e.holdingCtc),
+              DataGridCell<int>(
+                  columnName: 'Min Expected CTC', value: e.minExpectedCtc),
+              DataGridCell<int>(columnName: 'Current CTC', value: e.currentCtc),
+              DataGridCell<String>(
+                  columnName: 'Highest Degree', value: e.highestDegree),
+              DataGridCell<String>(columnName: 'Email', value: e.email),
+              DataGridCell<String>(
+                  columnName: 'Job Search Status', value: e.jobSearchStatus),
+              DataGridCell<int>(columnName: 'Total Exp', value: e.totalExp),
+              DataGridCell<String>(
+                  columnName: 'Current Company Type',
+                  value: e.currentCompanyType),
+              DataGridCell<int>(
+                  columnName: 'Notice Period', value: e.noticePeriod),
+              DataGridCell<String>(
+                  columnName: 'Current Company', value: e.currentCompany),
+              DataGridCell<String>(
+                  columnName: 'Resume Link', value: e.resumeLink),
+              DataGridCell<String>(
+                  columnName: 'Job Location', value: e.jobLocation),
+              DataGridCell<bool>(columnName: 'Verified', value: e.verified),
+              DataGridCell<String>(
+                  columnName: 'Job Profile Search Type',
+                  value: e.jobProfileSearchType),
             ]))
         .toList();
   }
