@@ -34,6 +34,10 @@ class _MyHomePageState extends State<InternalSheetS> {
       ),
       body: SfDataGrid(
         source: _employeeDataSource,
+
+        /// freeze
+        frozenColumnsCount: 4,
+
         allowEditing: true,
         selectionMode: SelectionMode.single,
         navigationMode: GridNavigationMode.cell,
@@ -42,6 +46,7 @@ class _MyHomePageState extends State<InternalSheetS> {
         columns: [
           GridColumn(
               columnName: 'mobile',
+              allowEditing: false,
               label: Container(
                   padding: EdgeInsets.all(16.0),
                   alignment: Alignment.center,
@@ -60,6 +65,7 @@ class _MyHomePageState extends State<InternalSheetS> {
                   ))),
           GridColumn(
               columnName: 'dateAdded',
+              allowEditing: false,
               label: Container(
                   padding: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
@@ -69,6 +75,7 @@ class _MyHomePageState extends State<InternalSheetS> {
                   ))),
           GridColumn(
               columnName: 'dataSource',
+              allowEditing: false,
               label: Container(
                   padding: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
