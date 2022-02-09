@@ -27,7 +27,8 @@ class EmployeeX {
 
 class Employee {
   /// Creates the employee class with required details.
-  Employee(this.mobile, this.name, this.dateAdded, this.dataSource);
+  Employee(this.mobile, this.name, this.dateAdded, this.dataSource,
+      this.highestDegree);
 
   String mobile;
 

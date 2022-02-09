@@ -34,6 +34,11 @@ class _InternalSheetSState extends State<InternalSheetS> {
         /// freeze
         frozenColumnsCount: 4,
 
+        /// Editing
+        allowEditing: true,
+        selectionMode: SelectionMode.single,
+        navigationMode: GridNavigationMode.cell,
+
         columns: <GridColumn>[
           GridColumn(
               columnName: 'mobile',
@@ -42,13 +47,17 @@ class _InternalSheetSState extends State<InternalSheetS> {
                   alignment: Alignment.center,
                   child: Text(
                     'Mobile',
+                    overflow: TextOverflow.ellipsis,
                   ))),
           GridColumn(
               columnName: 'name',
               label: Container(
                   padding: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
-                  child: Text('Name'))),
+                  child: Text(
+                    'Name',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
           GridColumn(
               columnName: 'dateAdded',
               label: Container(
@@ -63,85 +72,127 @@ class _InternalSheetSState extends State<InternalSheetS> {
               label: Container(
                   padding: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
-                  child: Text('Data Source'))),
+                  child: Text(
+                    'Data Source',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
           GridColumn(
               columnName: 'Holding CTC',
               label: Container(
                   padding: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
-                  child: Text('Holding CTC'))),
+                  child: Text(
+                    'Holding CTC',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
           GridColumn(
               columnName: 'Min Expected CTC',
               label: Container(
                   padding: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
-                  child: Text('Min Expected CTC'))),
+                  child: Text(
+                    'Min Expected CTC',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
           GridColumn(
               columnName: 'Current CTC',
               label: Container(
                   padding: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
-                  child: Text('Current CTC'))),
+                  child: Text(
+                    'Current CTC',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
           GridColumn(
               columnName: 'Highest Degree',
               label: Container(
                   padding: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
-                  child: Text('Highest Degree'))),
+                  child: Text(
+                    'Highest Degree',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
           GridColumn(
               columnName: 'Email',
               label: Container(
                   padding: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
-                  child: Text('Email'))),
+                  child: Text(
+                    'Email',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
           GridColumn(
               columnName: 'Job Search Status',
               label: Container(
                   padding: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
-                  child: Text('Job Search Status'))),
+                  child: Text(
+                    'Job Search Status',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
           GridColumn(
               columnName: 'Total Exp',
               label: Container(
                   padding: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
-                  child: Text('Total Exp'))),
+                  child: Text(
+                    'Total Exp',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
           GridColumn(
               columnName: 'Current Company Type',
               label: Container(
                   padding: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
-                  child: Text('Current Company Type'))),
+                  child: Text(
+                    'Current Company Type',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
           GridColumn(
               columnName: 'Notice Period',
               label: Container(
                   padding: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
-                  child: Text('Notice Period'))),
+                  child: Text(
+                    'Notice Period',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
           GridColumn(
               columnName: 'Current Company',
               label: Container(
                   padding: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
-                  child: Text('Current Company'))),
+                  child: Text(
+                    'Current Company',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
           GridColumn(
               columnName: 'Resume Link',
               label: Container(
                   padding: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
-                  child: Text('Resume Link'))),
+                  child: Text(
+                    'Resume Link',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
           GridColumn(
               columnName: 'Job Location',
               label: Container(
                   padding: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
-                  child: Text('Job Location'))),
+                  child: Text(
+                    'Job Location',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
           GridColumn(
               columnName: 'Verified',
               label: Container(
                   padding: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
-                  child: Text('Verified'))),
+                  child: Text(
+                    'Verified',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
           GridColumn(
               columnName: 'Job Profile Search Type',
               label: Container(
@@ -256,6 +307,14 @@ class EmployeeDataSource extends DataGridSource {
                   value: e.jobProfileSearchType),
             ]))
         .toList();
+
+    /// Helps to hold the new value of all editable widget.
+    /// Based on the new value we will commit the new value into the corresponding
+    /// DataGridCell on onCellSubmit method.
+    dynamic newCellValue;
+
+    /// Help to control the editable text in [TextField] widget.
+    TextEditingController editingController = TextEditingController();
   }
 
   List<DataGridRow> _employeeData = [];
