@@ -27,7 +27,13 @@ class _InternalSheetSState extends State<InternalSheetS> {
       ),
       body: SfDataGrid(
         source: employeeDataSource,
-        columnWidthMode: ColumnWidthMode.fill,
+
+        /// expand tables, overflow-x
+        columnWidthMode: ColumnWidthMode.auto,
+
+        /// freeze
+        frozenColumnsCount: 4,
+
         columns: <GridColumn>[
           GridColumn(
               columnName: 'mobile',
@@ -141,7 +147,10 @@ class _InternalSheetSState extends State<InternalSheetS> {
               label: Container(
                   padding: EdgeInsets.all(8.0),
                   alignment: Alignment.center,
-                  child: Text('Job Profile Search Type'))),
+                  child: Text(
+                    'Job Profile Search Type',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
         ],
       ),
     );
