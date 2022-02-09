@@ -33,8 +33,8 @@ class EmployeeDataSource extends DataGridSource {
     return DataGridRowAdapter(
         cells: row.getCells().map<Widget>((dataGridCell) {
       return Container(
-          alignment: (dataGridCell.columnName == 'id' ||
-                  dataGridCell.columnName == 'designation')
+          alignment: (dataGridCell.columnName == 'mobile' ||
+                  dataGridCell.columnName == 'name')
               ? Alignment.centerRight
               : Alignment.centerLeft,
           padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -61,25 +61,28 @@ class EmployeeDataSource extends DataGridSource {
       return;
     }
 
-    if (column.columnName == 'id') {
-      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
-          DataGridCell<int>(columnName: 'id', value: newCellValue as int);
-      _employees[dataRowIndex].id = newCellValue as int;
-    } else if (column.columnName == 'name') {
+    // if (column.columnName == 'mobile') {
+    //   dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
+    //       DataGridCell<int>(columnName: 'mobile', value: newCellValue as String);
+    //   _employees[dataRowIndex].mobile = newCellValue as String;
+    // }
+    if (column.columnName == 'name') {
       dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
           DataGridCell<String>(
               columnName: 'name', value: newCellValue as String);
       _employees[dataRowIndex].name = newCellValue.toString();
-    } else if (column.columnName == 'designation') {
-      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
-          DataGridCell<String>(
-              columnName: 'designation', value: newCellValue as String);
-      _employees[dataRowIndex].designation = newCellValue.toString();
-    } else {
-      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
-          DataGridCell<int>(columnName: 'salary', value: newCellValue as int);
-      _employees[dataRowIndex].salary = newCellValue as int;
     }
+    // else if (column.columnName == 'designation') {
+    //   dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
+    //       DataGridCell<String>(
+    //           columnName: 'designation', value: newCellValue as String);
+    //   _employees[dataRowIndex].designation = newCellValue.toString();
+    // }
+    // else {
+    //   dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
+    //       DataGridCell<int>(columnName: 'salary', value: newCellValue as int);
+    //   _employees[dataRowIndex].salary = newCellValue as int;
+    // }
   }
 
   @override

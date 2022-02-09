@@ -37,53 +37,171 @@ class _MyHomePageState extends State<InternalSheetS> {
         allowEditing: true,
         selectionMode: SelectionMode.single,
         navigationMode: GridNavigationMode.cell,
-        columnWidthMode: ColumnWidthMode.fill,
+        columnWidthMode: ColumnWidthMode.auto,
         controller: _dataGridController,
         columns: [
           GridColumn(
-            columnName: 'id',
-            label: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              alignment: Alignment.centerRight,
-              child: Text(
-                'ID',
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ),
+              columnName: 'mobile',
+              label: Container(
+                  padding: EdgeInsets.all(16.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Mobile',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
           GridColumn(
-            columnName: 'name',
-            label: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Name',
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ),
+              columnName: 'name',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Name',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
           GridColumn(
-            columnName: 'designation',
-            label: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Designation',
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ),
+              columnName: 'dateAdded',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Date Added',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
           GridColumn(
-            columnName: 'salary',
-            label: Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              alignment: Alignment.centerRight,
-              child: Text(
-                'Salary',
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ),
+              columnName: 'dataSource',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Data Source',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
+          GridColumn(
+              columnName: 'Holding CTC',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Holding CTC',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
+          GridColumn(
+              columnName: 'Min Expected CTC',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Min Expected CTC',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
+          GridColumn(
+              columnName: 'Current CTC',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Current CTC',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
+          GridColumn(
+              columnName: 'Highest Degree',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Highest Degree',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
+          GridColumn(
+              columnName: 'Email',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Email',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
+          GridColumn(
+              columnName: 'Job Search Status',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Job Search Status',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
+          GridColumn(
+              columnName: 'Total Exp',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Total Exp',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
+          GridColumn(
+              columnName: 'Current Company Type',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Current Company Type',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
+          GridColumn(
+              columnName: 'Notice Period',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Notice Period',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
+          GridColumn(
+              columnName: 'Current Company',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Current Company',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
+          GridColumn(
+              columnName: 'Resume Link',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Resume Link',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
+          GridColumn(
+              columnName: 'Job Location',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Job Location',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
+          GridColumn(
+              columnName: 'Verified',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Verified',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
+          GridColumn(
+              columnName: 'Job Profile Search Type',
+              label: Container(
+                  padding: EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Job Profile Search Type',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
         ],
       ),
     );
@@ -91,16 +209,26 @@ class _MyHomePageState extends State<InternalSheetS> {
 
   List<Employee> getEmployeeData() {
     return [
-      Employee(10001, 'James', 'Project Lead', 20000),
-      Employee(10002, 'Kathryn', 'Manager', 30000),
-      Employee(10003, 'Lara', 'Developer', 15000),
-      Employee(10004, 'Michael', 'Designer', 15000),
-      Employee(10005, 'Martin', 'Developer', 15000),
-      Employee(10006, 'Newberry', 'Developer', 15000),
-      Employee(10007, 'Balnc', 'Developer', 15000),
-      Employee(10008, 'Perry', 'Developer', 15000),
-      Employee(10009, 'Gable', 'Developer', 15000),
-      Employee(10010, 'Grimes', 'Developer', 15000)
+      Employee('8011230914', 'Masih', DateTime(2022), 'naukri'),
+      Employee('8011230914', 'Masih', DateTime(2022), 'naukri'),
+      Employee('8011230914', 'Masih', DateTime(2022), 'naukri'),
+      Employee('8011230914', 'Masih', DateTime(2022), 'naukri'),
+      Employee('8011230914', 'Masih', DateTime(2022), 'naukri'),
+      Employee('8011230914', 'Masih', DateTime(2022), 'naukri'),
+      Employee('8011230914', 'Masih', DateTime(2022), 'naukri'),
+      Employee('8011230914', 'Masih', DateTime(2022), 'naukri'),
+      Employee('8011230914', 'Masih', DateTime(2022), 'naukri'),
+      Employee('8011230914', 'Masih', DateTime(2022), 'naukri'),
+      // Employee(10001, 'James', 'Project Lead', 20000),
+      // Employee(10002, 'Kathryn', 'Manager', 30000),
+      // Employee(10003, 'Lara', 'Developer', 15000),
+      // Employee(10004, 'Michael', 'Designer', 15000),
+      // Employee(10005, 'Martin', 'Developer', 15000),
+      // Employee(10006, 'Newberry', 'Developer', 15000),
+      // Employee(10007, 'Balnc', 'Developer', 15000),
+      // Employee(10008, 'Perry', 'Developer', 15000),
+      // Employee(10009, 'Gable', 'Developer', 15000),
+      // Employee(10010, 'Grimes', 'Developer', 15000)
     ];
   }
 }
