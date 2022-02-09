@@ -1,181 +1,106 @@
-// import 'package:flutter/material.dart';
-// import 'package:pluto_grid/pluto_grid.dart';
-// import '../dummy_data/development.dart';
+import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
-// class InternalSheet extends StatefulWidget {
-//   InternalSheet({Key? key}) : super(key: key);
+import '../datagrid/datasource/employee_datasource.dart';
+import '../datagrid/model/employee.dart';
 
-//   @override
-//   State<InternalSheet> createState() => _InternalSheetState();
-// }
+class InternalSheetS extends StatefulWidget {
+  InternalSheetS({Key? key, required this.title}) : super(key: key);
 
-// class _InternalSheetState extends State<InternalSheet> {
-//   final List<PlutoColumn> columns = <PlutoColumn>[
-//     PlutoColumn(
-//       title: 'Date Added',
-//       field: 'dateAdded',
-//       type: PlutoColumnType.date(),
-//     ),
-//     PlutoColumn(
-//       title: 'Name',
-//       field: 'name',
-//       type: PlutoColumnType.text(),
-//     ),
-//     PlutoColumn(
-//       title: 'Location',
-//       field: 'location',
-//       type: PlutoColumnType.select(<String>[
-//         'Delhi',
-//         'Bangalore',
-//         'Mumbai',
-//         'Gurgaon',
-//       ]),
-//     ),
-//     PlutoColumn(
-//       title: 'Current Designation',
-//       field: 'currentDesignation',
-//       type: PlutoColumnType.text(),
-//     ),
-//     PlutoColumn(
-//       title: 'Current Company',
-//       field: 'currentCompany',
-//       type: PlutoColumnType.text(),
-//     ),
-//     PlutoColumn(
-//       title: 'Mobile',
-//       field: 'mobile',
-//       type: PlutoColumnType.text(),
-//     ),
-//     PlutoColumn(
-//       title: 'Status',
-//       field: 'status',
-//       type: PlutoColumnType.select(<String>[
-//         'Interested',
-//         'Required JD',
-//         'JD sent',
-//         'Could not connect',
-//         'Call later'
-//       ]),
-//     ),
-//     PlutoColumn(
-//       title: 'Id',
-//       field: 'id',
-//       type: PlutoColumnType.text(),
-//     ),
-//     PlutoColumn(
-//       title: 'Age',
-//       field: 'age',
-//       type: PlutoColumnType.number(),
-//     ),
-//     PlutoColumn(
-//       title: 'Role',
-//       field: 'role',
-//       type: PlutoColumnType.select(<String>[
-//         'Programmer',
-//         'Designer',
-//         'Owner',
-//       ]),
-//     ),
-//     PlutoColumn(
-//       title: 'Joined',
-//       field: 'joined',
-//       type: PlutoColumnType.date(),
-//     ),
-//     PlutoColumn(
-//       title: 'Working time',
-//       field: 'working_time',
-//       type: PlutoColumnType.time(),
-//     ),
-//   ];
+  final String title;
 
-//   final List<PlutoRow> rows = [
-//     PlutoRow(
-//       cells: {
-//         'dateAdded': PlutoCell(value: '2021-01-01'),
-//         'name': PlutoCell(value: 'Mike'),
-//         'location': PlutoCell(value: 'Delhi'),
-//         'currentDesignation': PlutoCell(value: 'Software Engineer'),
-//         'currentCompany': PlutoCell(value: 'Google'),
-//         'mobile': PlutoCell(value: '8011230915'),
-//         'status': PlutoCell(value: 'Interested'),
-//         'id': PlutoCell(value: 'user1'),
-//         'age': PlutoCell(value: 20),
-//         'role': PlutoCell(value: 'Programmer'),
-//         'joined': PlutoCell(value: '2021-01-01'),
-//         'working_time': PlutoCell(value: '09:00'),
-//       },
-//     ),
-//     PlutoRow(
-//       cells: {
-//         'dateAdded': PlutoCell(value: '2021-01-01'),
-//         'name': PlutoCell(value: 'Jack'),
-//         'location': PlutoCell(value: 'Delhi'),
-//         'currentDesignation': PlutoCell(value: 'Software Engineer'),
-//         'currentCompany': PlutoCell(value: 'Google'),
-//         'mobile': PlutoCell(value: '8011230915'),
-//         'status': PlutoCell(value: 'Interested'),
-//         'id': PlutoCell(value: 'user2'),
-//         'age': PlutoCell(value: 25),
-//         'role': PlutoCell(value: 'Designer'),
-//         'joined': PlutoCell(value: '2021-02-01'),
-//         'working_time': PlutoCell(value: '10:00'),
-//       },
-//     ),
-//     PlutoRow(
-//       cells: {
-//         'dateAdded': PlutoCell(value: '2021-01-01'),
-//         'name': PlutoCell(value: 'Suzi'),
-//         'location': PlutoCell(value: 'Delhi'),
-//         'currentDesignation': PlutoCell(value: 'Software Engineer'),
-//         'currentCompany': PlutoCell(value: 'Google'),
-//         'mobile': PlutoCell(value: '8011230915'),
-//         'status': PlutoCell(value: 'Interested'),
-//         'id': PlutoCell(value: 'user3'),
-//         'age': PlutoCell(value: 40),
-//         'role': PlutoCell(value: 'Owner'),
-//         'joined': PlutoCell(value: '2021-03-01'),
-//         'working_time': PlutoCell(value: '11:00'),
-//       },
-//     ),
-//   ];
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
 
-//   /// columnGroups that can group columns can be omitted.
-//   final List<PlutoColumnGroup> columnGroups = [
-//     PlutoColumnGroup(title: 'Id', fields: ['id'], expandedColumn: true),
-//     PlutoColumnGroup(title: 'User information', fields: ['name', 'age']),
-//     PlutoColumnGroup(title: 'Status', children: [
-//       PlutoColumnGroup(title: 'A', fields: ['role'], expandedColumn: true),
-//       PlutoColumnGroup(title: 'Etc.', fields: ['joined', 'working_time']),
-//     ]),
-//   ];
+class _MyHomePageState extends State<InternalSheetS> {
+  late EmployeeDataSource _employeeDataSource;
+  List<Employee> _employees = <Employee>[];
+  late DataGridController _dataGridController;
 
-//   /// [PlutoGridStateManager] has many methods and properties to dynamically manipulate the grid.
-//   /// You can manipulate the grid dynamically at runtime by passing this through the [onLoaded] callback.
-//   late final PlutoGridStateManager stateManager;
+  @override
+  void initState() {
+    super.initState();
+    _employees = getEmployeeData();
+    _employeeDataSource = EmployeeDataSource(_employees);
+    _dataGridController = DataGridController();
+  }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Container(
-//         padding: const EdgeInsets.all(15),
-//         child: PlutoGrid(
-//           columns: columns,
-//           rows: rows,
-//           // columnGroups: columnGroups,
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('SfDataGrid Editing'),
+      ),
+      body: SfDataGrid(
+        source: _employeeDataSource,
+        allowEditing: true,
+        selectionMode: SelectionMode.single,
+        navigationMode: GridNavigationMode.cell,
+        columnWidthMode: ColumnWidthMode.fill,
+        controller: _dataGridController,
+        columns: [
+          GridColumn(
+            columnName: 'id',
+            label: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              alignment: Alignment.centerRight,
+              child: Text(
+                'ID',
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+          GridColumn(
+            columnName: 'name',
+            label: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Name',
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+          GridColumn(
+            columnName: 'designation',
+            label: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Designation',
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+          GridColumn(
+            columnName: 'salary',
+            label: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              alignment: Alignment.centerRight,
+              child: Text(
+                'Salary',
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
-//           onLoaded: (PlutoGridOnLoadedEvent event) {
-//             event.stateManager.setSelectingMode(PlutoGridSelectingMode.row);
-
-//             stateManager = event.stateManager;
-//           },
-//           onChanged: (PlutoGridOnChangedEvent event) {
-//             print(event);
-//           },
-//           configuration: const PlutoGridConfiguration(
-//             enableColumnBorder: true,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+  List<Employee> getEmployeeData() {
+    return [
+      Employee(10001, 'James', 'Project Lead', 20000),
+      Employee(10002, 'Kathryn', 'Manager', 30000),
+      Employee(10003, 'Lara', 'Developer', 15000),
+      Employee(10004, 'Michael', 'Designer', 15000),
+      Employee(10005, 'Martin', 'Developer', 15000),
+      Employee(10006, 'Newberry', 'Developer', 15000),
+      Employee(10007, 'Balnc', 'Developer', 15000),
+      Employee(10008, 'Perry', 'Developer', 15000),
+      Employee(10009, 'Gable', 'Developer', 15000),
+      Employee(10010, 'Grimes', 'Developer', 15000)
+    ];
+  }
+}
