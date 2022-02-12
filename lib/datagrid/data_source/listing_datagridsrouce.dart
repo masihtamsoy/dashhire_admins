@@ -132,6 +132,7 @@ class ListingDataGridSource extends DataGridSource {
   /// Building a [TextField] for numeric and text column.
   Widget _buildTextFieldWidget(
       String displayText, GridColumn column, CellSubmit submitCell) {
+    /// Define behaviour based on columnName
     final bool isTextAlignRight = column.columnName == 'Product No' ||
         column.columnName == 'Shipped Date' ||
         column.columnName == 'Price';
@@ -188,7 +189,6 @@ class ListingDataGridSource extends DataGridSource {
   /// Building a [DropDown] for combo box column.
   Widget _buildDropDownWidget(String? displayText, CellSubmit submitCell,
       List<String> dropDownMenuItems) {
-    print("------here-----${dropDownMenuItems}");
     return Container(
       padding: const EdgeInsets.all(8.0),
       alignment: Alignment.centerLeft,
@@ -262,5 +262,13 @@ class ListingDataGridSource extends DataGridSource {
     if (newCellValue == null || oldValue == newCellValue) {
       return;
     }
+
+    /// reflect new values at cell
+    String currentColumnName = dataGridRows[dataRowIndex]
+        .getCells()[rowColumnIndex.columnIndex]
+        .columnName;
+
+    dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
+        DataGridCell(columnName: currentColumnName, value: newCellValue);
   }
 }
