@@ -16,7 +16,8 @@ import 'screens/signin_screen.dart';
 import 'screens/splash_screen.dart';
 import 'screens/web_home_screen.dart';
 import 'screens/admin_listing.dart';
-import 'screens/internal_sheet_s.dart';
+import 'screens/internal_sheet.dart';
+import './datagrid/data_source/datagrid_json_data_source.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,7 +73,10 @@ class MyApp extends StatelessWidget {
                     mode: 'candidate',
                     title: 'Candidates Page',
                     popRouteName: '/admins'),
-                '/internal_sheet': (_) => InternalSheetS()
+                '/internal_sheet': (_) => InternalSheetS(
+                      title: 'Sheet',
+                    ),
+                '/is': (_) => const JsonDataSourceDataGrid(),
               },
               debugShowCheckedModeBanner: false,
               onGenerateRoute: generateRoute,
