@@ -34,7 +34,7 @@ class ListingDataGridSource extends DataGridSource {
   // Populate Data from the json file
   Future<void> _generateProductList() async {
     final String responseBody =
-        await rootBundle.loadString('assets/product_data.json');
+        await rootBundle.loadString('/candidate_data.json');
     final dynamic list =
         await json.decode(responseBody).cast<Map<String, dynamic>>();
     employees = await list
@@ -48,36 +48,36 @@ class ListingDataGridSource extends DataGridSource {
     dataGridRows = employees.map<DataGridRow>((ListingSchema employee) {
       if (_sampleType == 'JSON') {
         return DataGridRow(cells: <DataGridCell<String>>[
-          DataGridCell<String>(columnName: 'id', value: employee.id),
+          // DataGridCell<String>(columnName: 'id', value: employee.id),
+          // DataGridCell<String>(
+          //     columnName: 'contactName', value: employee.contactName),
+          // DataGridCell<String>(
+          //     columnName: 'companyName', value: employee.companyName),
+          // DataGridCell<String>(columnName: 'city', value: employee.city),
+          // DataGridCell<String>(columnName: 'country', value: employee.country),
+          // DataGridCell<String>(
+          //     columnName: 'designation', value: employee.designation),
+          // DataGridCell<String>(
+          //     columnName: 'postalCode', value: employee.postalCode),
           DataGridCell<String>(
-              columnName: 'contactName', value: employee.contactName),
-          DataGridCell<String>(
-              columnName: 'companyName', value: employee.companyName),
-          DataGridCell<String>(columnName: 'city', value: employee.city),
-          DataGridCell<String>(columnName: 'country', value: employee.country),
-          DataGridCell<String>(
-              columnName: 'designation', value: employee.designation),
-          DataGridCell<String>(
-              columnName: 'postalCode', value: employee.postalCode),
-          DataGridCell<String>(
-              columnName: 'phoneNumber', value: employee.phoneNumber),
+              columnName: 'phoneNumber', value: employee.mobile),
         ]);
       } else {
         return DataGridRow(cells: <DataGridCell<String>>[
-          DataGridCell<String>(columnName: 'id', value: employee.id),
+          // DataGridCell<String>(columnName: 'id', value: employee.id),
+          // DataGridCell<String>(
+          //     columnName: 'contactName', value: employee.contactName),
+          // DataGridCell<String>(
+          //     columnName: 'companyName', value: employee.companyName),
+          // DataGridCell<String>(columnName: 'address', value: employee.address),
+          // DataGridCell<String>(columnName: 'city', value: employee.city),
+          // DataGridCell<String>(columnName: 'country', value: employee.country),
+          // DataGridCell<String>(
+          //     columnName: 'designation', value: employee.designation),
+          // DataGridCell<String>(
+          //     columnName: 'postalCode', value: employee.postalCode),
           DataGridCell<String>(
-              columnName: 'contactName', value: employee.contactName),
-          DataGridCell<String>(
-              columnName: 'companyName', value: employee.companyName),
-          DataGridCell<String>(columnName: 'address', value: employee.address),
-          DataGridCell<String>(columnName: 'city', value: employee.city),
-          DataGridCell<String>(columnName: 'country', value: employee.country),
-          DataGridCell<String>(
-              columnName: 'designation', value: employee.designation),
-          DataGridCell<String>(
-              columnName: 'postalCode', value: employee.postalCode),
-          DataGridCell<String>(
-              columnName: 'phoneNumber', value: employee.phoneNumber),
+              columnName: 'phoneNumber', value: employee.mobile),
         ]);
       }
     }).toList();

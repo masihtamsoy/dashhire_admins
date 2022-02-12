@@ -1,0 +1,101 @@
+[
+    {
+        "id": 1,
+        "inserted_at": "2022-02-05T15:58:55.932+00:00",
+        "updated_at": "2022-02-05T15:58:55.932+00:00",
+        "name": "Masih Tamsoy",
+        "current_ctc": 1200000,
+        "email": "masih@dashhire.co",
+        "skill": [
+            {
+                "env": "nodejs",
+                "exp": 2
+            },
+            {
+                "env": "reactjs",
+                "exp": 4
+            },
+            {
+                "env": "flutter",
+                "exp": 2
+            }
+        ],
+        "min_expected_ctc": 1500000,
+        "highest_degree": null,
+        "data_source": null,
+        "holding_ctc": null,
+        "job_profile_search_type": null,
+        "verified": null,
+        "job_location": null,
+        "resume_link": null,
+        "current_company": null,
+        "notice_period": null,
+        "current_company_type": null,
+        "last_notice_period": null,
+        "total_exp": 7,
+        "mobile": "8011230914",
+        "job_search_status": null
+    },
+    {
+        "id": 2,
+        "inserted_at": "2022-02-05T16:41:27.679+00:00",
+        "updated_at": "2022-02-05T16:41:27.679+00:00",
+        "name": "Tanmay Daripa",
+        "current_ctc": 1200000,
+        "email": "tanmay@dashhire.co",
+        "skill": [
+            {
+                "env": "nodejs",
+                "exp": "5"
+            },
+            {
+                "env": "reactjs",
+                "exp": "1"
+            }
+        ],
+        "min_expected_ctc": 2000000,
+        "highest_degree": null,
+        "data_source": null,
+        "holding_ctc": null,
+        "job_profile_search_type": null,
+        "verified": null,
+        "job_location": null,
+        "resume_link": null,
+        "current_company": null,
+        "notice_period": null,
+        "current_company_type": null,
+        "last_notice_period": null,
+        "total_exp": 5,
+        "mobile": "8809420304",
+        "job_search_status": null
+    },
+    {
+        "id": 3,
+        "inserted_at": "2022-02-05T18:05:24.28+00:00",
+        "updated_at": "2022-02-05T18:05:24.28+00:00",
+        "name": "Abhishek",
+        "current_ctc": 2000000,
+        "email": "abhishek@dashhire.co",
+        "skill": [
+            {
+                "env": "nodejs",
+                "exp": 3
+            }
+        ],
+        "min_expected_ctc": 2500000,
+        "highest_degree": null,
+        "data_source": null,
+        "holding_ctc": null,
+        "job_profile_search_type": null,
+        "verified": null,
+        "job_location": null,
+        "resume_link": null,
+        "current_company": null,
+        "notice_period": null,
+        "current_company_type": null,
+        "last_notice_period": null,
+        "total_exp": 3,
+        "mobile": "8011230915",
+        "job_search_status": null
+    }
+]
