@@ -1,8 +1,11 @@
+/// Dart import
+import 'dart:convert';
+
 /// Packages import
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 /// Local import
-// import 'package:flutter_examples/model/sample_view.dart';
 import '../data_source/listing_datagridsrouce.dart';
 
 /// DataGrid import
@@ -25,106 +28,39 @@ class _JsonDataSourceDataGridState extends State {
 
   Widget sampleWidget() => const JsonDataSourceDataGrid();
 
+  List<GridColumn> gridColumn = [];
+  Future generateColumnList() async {
+    final String responseBody =
+        await rootBundle.loadString('/candidate_data.json');
+    final dynamic list =
+        await json.decode(responseBody).cast<Map<String, dynamic>>();
+
+    if (list[0] != null) {
+      final Map<String, dynamic> myMap = list[0] as Map<String, dynamic>;
+      myMap.forEach((k, v) {
+        gridColumn.add(
+          GridColumn(
+            columnName: k,
+            width: isWebOrDesktop ? 135 : 90,
+            label: Container(
+              padding: const EdgeInsets.all(8),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                k,
+                overflow: TextOverflow.clip,
+                softWrap: true,
+              ),
+            ),
+          ),
+        );
+      });
+    }
+
+    return gridColumn;
+  }
+
   List<GridColumn> getColumns() {
-    List<GridColumn> columns;
-    columns = <GridColumn>[
-      // GridColumn(
-      //   columnName: 'id',
-      //   width: isWebOrDesktop ? 135 : 90,
-      //   label: Container(
-      //     padding: const EdgeInsets.all(8),
-      //     alignment: Alignment.centerLeft,
-      //     child: const Text(
-      //       'ID',
-      //       overflow: TextOverflow.clip,
-      //       softWrap: true,
-      //     ),
-      //   ),
-      // ),
-      // GridColumn(
-      //   columnName: 'contactName',
-      //   width: 150,
-      //   label: Container(
-      //     padding: const EdgeInsets.all(8),
-      //     alignment: Alignment.centerLeft,
-      //     child: const Text(
-      //       'Contact Name',
-      //       overflow: TextOverflow.clip,
-      //       softWrap: true,
-      //     ),
-      //   ),
-      // ),
-      // GridColumn(
-      //   columnName: 'companyName',
-      //   width: isWebOrDesktop ? 165 : 140,
-      //   label: Container(
-      //     padding: const EdgeInsets.all(8),
-      //     alignment: Alignment.centerLeft,
-      //     child: const Text(
-      //       'Company',
-      //       overflow: TextOverflow.clip,
-      //       softWrap: true,
-      //     ),
-      //   ),
-      // ),
-      // GridColumn(
-      //   columnName: 'city',
-      //   width: isWebOrDesktop ? 150 : 120,
-      //   label: Container(
-      //     padding: const EdgeInsets.all(8),
-      //     alignment: Alignment.centerLeft,
-      //     child: const Text(
-      //       'City',
-      //       overflow: TextOverflow.clip,
-      //       softWrap: true,
-      //     ),
-      //   ),
-      // ),
-      // GridColumn(
-      //   columnName: 'country',
-      //   width: isWebOrDesktop ? 150 : 120,
-      //   label: Container(
-      //     padding: const EdgeInsets.all(8),
-      //     alignment: Alignment.centerLeft,
-      //     child: const Text(
-      //       'Country',
-      //       overflow: TextOverflow.clip,
-      //       softWrap: true,
-      //     ),
-      //   ),
-      // ),
-      // GridColumn(
-      //   columnName: 'designation',
-      //   width: 170,
-      //   label: Container(
-      //     padding: const EdgeInsets.all(8),
-      //     alignment: Alignment.centerLeft,
-      //     child: const Text(
-      //       'Job Title',
-      //       overflow: TextOverflow.clip,
-      //       softWrap: true,
-      //     ),
-      //   ),
-      // ),
-      // GridColumn(
-      //   columnName: 'postalCode',
-      //   width: 110,
-      //   label: Container(
-      //     padding: const EdgeInsets.all(8),
-      //     alignment: Alignment.centerLeft,
-      //     child: const Text('Postal Code'),
-      //   ),
-      // ),
-      GridColumn(
-        columnName: 'phoneNumber',
-        width: 150,
-        label: Container(
-          padding: const EdgeInsets.all(8),
-          alignment: Alignment.centerRight,
-          child: const Text('Phone?mobile Number'),
-        ),
-      )
-    ];
+    final List<GridColumn> columns = generateColumnList() as List<GridColumn>;
     return columns;
   }
 
@@ -134,17 +70,14 @@ class _JsonDataSourceDataGridState extends State {
     // isWebOrDesktop = model.isWeb || model.isDesktop;
     isWebOrDesktop = true;
     jsonDataGridSource = ListingDataGridSource('JSON');
-    print("jsonDataGridSource---${jsonDataGridSource}");
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<String>(
-        future: Future<String>.delayed(
-            const Duration(milliseconds: 500), () => 'Loaded'),
+    return FutureBuilder(
+        future: generateColumnList(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          print("build jsonDataGridSource---${jsonDataGridSource}");
-          return jsonDataGridSource.employees.isEmpty
+          return jsonDataGridSource.items.isEmpty
               ? const Center(
                   child: CircularProgressIndicator(
                     strokeWidth: 3,
@@ -156,7 +89,7 @@ class _JsonDataSourceDataGridState extends State {
                   allowEditing: true,
                   navigationMode: GridNavigationMode.cell,
                   selectionMode: SelectionMode.single,
-                  columns: getColumns());
+                  columns: gridColumn);
         });
   }
 }
