@@ -83,13 +83,15 @@ class _JsonDataSourceDataGridState extends State {
                     strokeWidth: 3,
                   ),
                 )
-              : SfDataGrid(
-                  source: jsonDataGridSource,
-                  frozenColumnsCount: 1,
-                  allowEditing: true,
-                  navigationMode: GridNavigationMode.cell,
-                  selectionMode: SelectionMode.single,
-                  columns: gridColumn);
+              : Scaffold(
+                  body: SfDataGrid(
+                      source: jsonDataGridSource,
+                      frozenColumnsCount: 4,
+                      allowEditing: true,
+                      navigationMode: GridNavigationMode.cell,
+                      selectionMode: SelectionMode.single,
+                      columns: gridColumn),
+                );
         });
   }
 }
