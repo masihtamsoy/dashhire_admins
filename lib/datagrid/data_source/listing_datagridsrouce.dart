@@ -47,7 +47,7 @@ class ListingDataGridSource extends DataGridSource {
 
   List<DataGridCell<dynamic>> generateDataGridCell(String jsonStr) {
     Map<String, dynamic> myMap = json.decode(jsonStr) as Map<String, dynamic>;
-    print("+++++${myMap}");
+    // print("+++++${myMap}");
     List<DataGridCell<dynamic>> dataCell = [];
     myMap.forEach((k, v) {
       dataCell.add(DataGridCell(columnName: k, value: v));
@@ -59,7 +59,7 @@ class ListingDataGridSource extends DataGridSource {
   void buildDataGridRow(String _sampleType) {
     dataGridRows = items.map<DataGridRow>((ListingSchema item) {
       if (_sampleType == 'JSON') {
-        print("*********${item.metadata}");
+        // print("*********${item.metadata}");
         String jsonStr = json.encode(item.metadata);
         List<DataGridCell<dynamic>> dataGridCells =
             generateDataGridCell(jsonStr);
