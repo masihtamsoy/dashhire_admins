@@ -4,6 +4,8 @@ import 'dart:convert';
 /// Packages import
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:supabase/supabase.dart' as supa;
+import '../../common/constant.dart';
 
 /// Local import
 import '../data_source/listing_datagridsrouce.dart';
@@ -29,13 +31,34 @@ class _JsonDataSourceDataGridState extends State {
   Widget sampleWidget() => const JsonDataSourceDataGrid();
 
   List<GridColumn> gridColumn = [];
-  Future generateColumnList() async {
-    final String responseBody =
-        await rootBundle.loadString('/candidate_data.json');
+
+  final client =
+      supa.SupabaseClient(SupaConstants.supabaseUrl, SupaConstants.supabaseKey);
+
+  Future<List<GridColumn>> generateColumnList() async {
+    // print("generateItemList-------");
+    final selectResponse =
+        await client.from('candidates').select('*').execute();
+
+    String responseBody = "";
+    if (selectResponse.error == null) {
+      // print('response.data: ${selectResponse.data}');
+      responseBody = json.encode(selectResponse.data);
+    } else {
+      responseBody = json.encode("[]");
+    }
+
     final dynamic list =
         await json.decode(responseBody).cast<Map<String, dynamic>>();
 
-    if (list[0] != null) {
+    print("------$list");
+
+    // final String responseBody =
+    //     await rootBundle.loadString('/candidate_data.json');
+    // final dynamic list =
+    //     await json.decode(responseBody).cast<Map<String, dynamic>>();
+
+    if (list != null && list.length != 0) {
       final Map<String, dynamic> myMap = list[0] as Map<String, dynamic>;
       myMap.forEach((k, v) {
         gridColumn.add(
@@ -57,8 +80,11 @@ class _JsonDataSourceDataGridState extends State {
     }
 
     /// Changing seconds effect render
+    /// TODO: work on this issue
     await Future.delayed(const Duration(seconds: 4), () {});
+    // print("generateColumnList------------------");
 
+    // setState(() {});
     return gridColumn;
   }
 
@@ -79,6 +105,8 @@ class _JsonDataSourceDataGridState extends State {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: generateColumnList(),
+        // future: Future<String>.delayed(
+        //     const Duration(milliseconds: 500), () => 'Loaded'),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           // print("-----------$jsonDataGridSource");
           return jsonDataGridSource.items.isEmpty

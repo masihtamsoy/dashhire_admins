@@ -7,6 +7,10 @@ import 'package:flutter/services.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
+import '../../store/dash_store.dart';
+
 import 'package:supabase/supabase.dart' as supa;
 import '../../common/constant.dart';
 
@@ -43,12 +47,13 @@ class ListingDataGridSource extends DataGridSource {
 
   // Populate Data from the json file
   Future<void> generateItemList() async {
+    // print("generateItemList-------");
     final selectResponse =
         await client.from('candidates').select('*').execute();
 
     String responseBody = "";
     if (selectResponse.error == null) {
-      print('response.data: ${selectResponse.data}');
+      // print('response.data: ${selectResponse.data}');
       responseBody = json.encode(selectResponse.data);
     } else {
       responseBody = json.encode("[]");
@@ -123,28 +128,6 @@ class ListingDataGridSource extends DataGridSource {
   RegExp _getRegExp(bool isNumericKeyBoard, String columnName) {
     return isNumericKeyBoard ? RegExp('[0-9]') : RegExp('[a-zA-Z ]');
   }
-
-  final List<String> _shipCountry = <String>[
-    'Argentina',
-    'Austria',
-    'Belgium',
-    'Brazil',
-    'Canada',
-    'Denmark',
-    'Finland',
-    'France',
-    'Germany',
-    'Ireland',
-    'Italy',
-    'Mexico',
-    'Norway',
-    'Poland',
-    'Portugal',
-    'Spain',
-    'Sweden',
-    'UK',
-    'USA',
-  ];
 
   /// Building a [TextField] for numeric and text column.
   Widget _buildTextFieldWidget(
@@ -240,7 +223,7 @@ class ListingDataGridSource extends DataGridSource {
 
     String responseBody = "";
     if (selectResponse.error == null) {
-      print('response.data: ${selectResponse.data}');
+      // print('response.data: ${selectResponse.data}');
       responseBody = json.encode(selectResponse.data);
     } else {
       responseBody = json.encode("[]");
@@ -330,7 +313,7 @@ class ListingDataGridSource extends DataGridSource {
         .execute();
 
     if (updateResponse.error == null) {
-      print('response.data: ${updateResponse.data}');
+      // print('response.data: ${updateResponse.data}');
     } else {
       /// Handle error better
       print('Error');

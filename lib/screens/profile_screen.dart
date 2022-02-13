@@ -61,7 +61,7 @@ class _ProfileScreenState extends AuthRequiredState<ProfileScreen> {
       }
 
       setState(() {
-        print(response.data);
+        // print(response.data);
         username = response.data?['username'] as String? ?? '';
         website = response.data?['website'] as String? ?? '';
         avatarUrl = response.data?['avatar_url'] as String? ?? '';
