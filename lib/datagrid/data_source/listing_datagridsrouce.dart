@@ -7,6 +7,9 @@ import 'package:flutter/services.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
+import 'package:supabase/supabase.dart' as supa;
+import '../../common/constant.dart';
+
 /// Local import
 import '../model/listing.dart';
 
@@ -247,9 +250,12 @@ class ListingDataGridSource extends DataGridSource {
     }
   }
 
+  final client =
+      supa.SupabaseClient(SupaConstants.supabaseUrl, SupaConstants.supabaseKey);
+
   @override
   void onCellSubmit(DataGridRow dataGridRow, RowColumnIndex rowColumnIndex,
-      GridColumn column) {
+      GridColumn column) async {
     final dynamic oldValue = dataGridRow
             .getCells()
             .firstWhereOrNull((DataGridCell dataGridCell) =>
@@ -270,5 +276,26 @@ class ListingDataGridSource extends DataGridSource {
 
     dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
         DataGridCell(columnName: currentColumnName, value: newCellValue);
+
+    /// In order to update data to DB
+    /// Collect id >> Hardcoded to column 0
+    var id = dataGridRows[dataRowIndex].getCells()[0].value;
+
+    final updateResponse = await client
+        .from("candidates")
+        .update({currentColumnName: newCellValue})
+        .eq('id', id)
+        .execute();
+
+    if (updateResponse.error == null) {
+      print('response.data: ${updateResponse.data}');
+    } else {
+      /// Handle error better
+      print('Error');
+      // print('>>>>>>>>>>>>>>>>>>>updateResponse.error: ${updateResponse.error}');
+      // FocusScope.of(context).unfocus();
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //     SnackBar(content: Text(updateResponse.error.message)));
+    }
   }
 }
