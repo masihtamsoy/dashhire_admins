@@ -27,11 +27,13 @@ class ListingDataGridSource extends DataGridSource {
 
   Future<void> _populateData(String _sampleType) async {
     await generateItemList();
+    await getAtsConstants();
     buildDataGridRow(_sampleType);
   }
 
   /// Instance of an item.
   List<ListingSchema> items = <ListingSchema>[];
+  List atsConstantItems = [];
 
   /// Instance of DataGridRow.
   List<DataGridRow> dataGridRows = <DataGridRow>[];
@@ -232,6 +234,21 @@ class ListingDataGridSource extends DataGridSource {
     );
   }
 
+  Future<void> getAtsConstants() async {
+    final selectResponse =
+        await client.from('ats_constants').select('*').execute();
+
+    String responseBody = "";
+    if (selectResponse.error == null) {
+      print('response.data: ${selectResponse.data}');
+      responseBody = json.encode(selectResponse.data);
+    } else {
+      responseBody = json.encode("[]");
+    }
+
+    atsConstantItems = await json.decode(responseBody) as List;
+  }
+
   @override
   Widget? buildEditWidget(DataGridRow dataGridRow,
       RowColumnIndex rowColumnIndex, GridColumn column, CellSubmit submitCell) {
@@ -255,8 +272,24 @@ class ListingDataGridSource extends DataGridSource {
     // Holds regular expression pattern based on the column type.
     final RegExp regExp = _getRegExp(isNumericType, column.columnName);
 
-    if (column.columnName == 'Highest Degree') {
-      return _buildDropDownWidget(displayText, submitCell, _shipCountry);
+    // Loop over ats_constants to know about fields, in case field_type is defined
+    // as dropdown render _buildDropDownWidget
+    List<String> options = [];
+    atsConstantItems.forEach((x) {
+      if (column.columnName == x['field_name']) {
+        if (x['field_type'] == 'dropdown') {
+          String optionsStr = x['metadata'] as String;
+          options = optionsStr.split(",") as List<String>;
+        }
+      }
+    });
+
+    if (options.length != 0) {
+      String mutantDisplayText = displayText;
+      if (displayText == null || displayText == "") {
+        mutantDisplayText = options[options.length - 1];
+      }
+      return _buildDropDownWidget(mutantDisplayText, submitCell, options);
     } else {
       return _buildTextFieldWidget(displayText, column, submitCell);
     }

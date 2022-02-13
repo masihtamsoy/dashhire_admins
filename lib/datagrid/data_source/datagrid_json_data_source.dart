@@ -56,6 +56,9 @@ class _JsonDataSourceDataGridState extends State {
       });
     }
 
+    /// Changing seconds effect render
+    await Future.delayed(const Duration(seconds: 4), () {});
+
     return gridColumn;
   }
 
@@ -77,6 +80,7 @@ class _JsonDataSourceDataGridState extends State {
     return FutureBuilder(
         future: generateColumnList(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          // print("-----------$jsonDataGridSource");
           return jsonDataGridSource.items.isEmpty
               ? const Center(
                   child: CircularProgressIndicator(
