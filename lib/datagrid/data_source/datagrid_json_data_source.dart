@@ -62,7 +62,7 @@ class _JsonDataSourceDataGridState extends State {
     final dynamic list =
         await json.decode(responseBody).cast<Map<String, dynamic>>();
 
-    print("------$list");
+    // print("------$list");
 
     // final String responseBody =
     //     await rootBundle.loadString('/candidate_data.json');
@@ -112,8 +112,11 @@ class _JsonDataSourceDataGridState extends State {
     jsonDataGridSource = ListingDataGridSource('JSON');
   }
 
+  final DataGridController _dataGridController = DataGridController();
+
   Future<void> _exportDataGridToExcel() async {
-    final Workbook workbook = _key.currentState!.exportToExcelWorkbook();
+    final Workbook workbook = _key.currentState!
+        .exportToExcelWorkbook(rows: _dataGridController.selectedRows);
 
     final List<int> bytes = workbook.saveAsStream();
     workbook.dispose();
@@ -212,7 +215,9 @@ class _JsonDataSourceDataGridState extends State {
                           frozenColumnsCount: 4,
                           allowEditing: true,
                           navigationMode: GridNavigationMode.cell,
-                          selectionMode: SelectionMode.single,
+                          selectionMode: SelectionMode.multiple,
+                          showCheckboxColumn: true,
+                          controller: _dataGridController,
                           columns: gridColumn),
                     ],
                   ),
