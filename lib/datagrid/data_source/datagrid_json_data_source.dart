@@ -116,13 +116,37 @@ class _JsonDataSourceDataGridState extends State {
                   ),
                 )
               : Scaffold(
-                  body: SfDataGrid(
-                      source: jsonDataGridSource,
-                      frozenColumnsCount: 4,
-                      allowEditing: true,
-                      navigationMode: GridNavigationMode.cell,
-                      selectionMode: SelectionMode.single,
-                      columns: gridColumn),
+                  body: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                              width: 100.0,
+                              child: TextField(
+                                  style: TextStyle(
+                                      // fontSize: 40.0,
+                                      // height: 2.0,
+                                      color: Colors.black))),
+                          TextButton(
+                              child: const Text('Filter'),
+                              onPressed: () {
+                                // _employees.add(Employee(10011, 'Steve', 'Designer', 15000));
+                                // _employeeDataSource.buildDataGridRows();
+                                // _employeeDataSource.updateDataGridSource();
+                              }),
+                        ],
+                      ),
+                      SfDataGrid(
+                          // gridLinesVisibility: GridLinesVisibility.both,
+                          // headerGridLinesVisibility: GridLinesVisibility.both,
+                          source: jsonDataGridSource,
+                          frozenColumnsCount: 4,
+                          allowEditing: true,
+                          navigationMode: GridNavigationMode.cell,
+                          selectionMode: SelectionMode.single,
+                          columns: gridColumn),
+                    ],
+                  ),
                 );
         });
   }
