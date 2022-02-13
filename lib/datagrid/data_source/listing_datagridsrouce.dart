@@ -36,18 +36,30 @@ class ListingDataGridSource extends DataGridSource {
   /// Instance of DataGridRow.
   List<DataGridRow> dataGridRows = <DataGridRow>[];
 
+  final client =
+      supa.SupabaseClient(SupaConstants.supabaseUrl, SupaConstants.supabaseKey);
+
   // Populate Data from the json file
   Future<void> generateItemList() async {
-    final String responseBody =
-        await rootBundle.loadString('/candidate_data.json');
+    final selectResponse =
+        await client.from('candidates').select('*').execute();
+
+    String responseBody = "";
+    if (selectResponse.error == null) {
+      print('response.data: ${selectResponse.data}');
+      responseBody = json.encode(selectResponse.data);
+    } else {
+      responseBody = json.encode("[]");
+    }
+
+    // final String responseBody =
+    //     await rootBundle.loadString('/candidate_data.json');
     final dynamic list =
         await json.decode(responseBody).cast<Map<String, dynamic>>();
     items = await list
         .map<ListingSchema>((dynamic json) =>
             ListingSchema.fromJson(json as Map<String, dynamic>))
         .toList() as List<ListingSchema>;
-
-    // print("*********${items}");
   }
 
   List<DataGridCell<dynamic>> generateDataGridCell(String jsonStr) {
@@ -249,9 +261,6 @@ class ListingDataGridSource extends DataGridSource {
       return _buildTextFieldWidget(displayText, column, submitCell);
     }
   }
-
-  final client =
-      supa.SupabaseClient(SupaConstants.supabaseUrl, SupaConstants.supabaseKey);
 
   @override
   void onCellSubmit(DataGridRow dataGridRow, RowColumnIndex rowColumnIndex,
