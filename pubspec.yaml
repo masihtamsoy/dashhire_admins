@@ -38,7 +38,9 @@ dependencies:
       ref: stable
   pluto_grid: ^2.9.2
   syncfusion_flutter_datagrid: ^19.4.47
+  syncfusion_flutter_datagrid_export: ^19.4.50-beta
   faker: ^2.0.0
+  flutter_form_builder: ^7.1.0
 
   
 
