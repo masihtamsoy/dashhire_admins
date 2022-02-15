@@ -73,14 +73,14 @@ class _JsonDataSourceDataGridState extends State {
       final Map<String, dynamic> myMap = list[0] as Map<String, dynamic>;
       myMap.forEach((k, v) {
         bool visible = true;
-        if (k == "id" || k == "inserted_at" || k == "updated_at") {
-          visible = false;
-        }
+        // if (k == "id" || k == "inserted_at" || k == "updated_at") {
+        //   visible = false;
+        // }
         gridColumn.add(
           GridColumn(
             visible: visible,
             columnName: k,
-            width: isWebOrDesktop ? 135 : 90,
+            // width: isWebOrDesktop ? 135 : 90,
             label: Container(
               padding: const EdgeInsets.all(8),
               alignment: Alignment.centerLeft,
@@ -217,11 +217,11 @@ class _JsonDataSourceDataGridState extends State {
                           // gridLinesVisibility: GridLinesVisibility.both,
                           // headerGridLinesVisibility: GridLinesVisibility.both,
                           source: jsonDataGridSource,
-                          frozenColumnsCount: 5,
+                          // frozenColumnsCount: 5,
                           allowEditing: true,
                           navigationMode: GridNavigationMode.cell,
                           selectionMode: SelectionMode.multiple,
-                          showCheckboxColumn: true,
+                          // showCheckboxColumn: false,
                           controller: _dataGridController,
                           columns: gridColumn),
                     ],
