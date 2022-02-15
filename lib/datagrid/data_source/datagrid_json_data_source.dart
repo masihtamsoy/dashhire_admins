@@ -81,7 +81,6 @@ class _JsonDataSourceDataGridState extends State {
           GridColumn(
             visible: visible,
             columnName: k,
-            // width: isWebOrDesktop ? 135 : 90,
             label: Container(
               padding: const EdgeInsets.all(8),
               alignment: Alignment.centerLeft,
@@ -229,7 +228,7 @@ class _JsonDataSourceDataGridState extends State {
                             gridLinesVisibility: GridLinesVisibility.both,
                             headerGridLinesVisibility: GridLinesVisibility.both,
                             source: jsonDataGridSource,
-                            // frozenColumnsCount: 5,
+                            frozenColumnsCount: 4,
                             allowEditing: true,
                             navigationMode: GridNavigationMode.cell,
                             selectionMode: SelectionMode.multiple,
