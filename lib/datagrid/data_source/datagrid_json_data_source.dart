@@ -150,17 +150,25 @@ class _JsonDataSourceDataGridState extends State {
               : Scaffold(
                   body: Column(
                     children: [
-                      SizedBox(
-                        height: 40.0,
-                        width: 150.0,
-                        child: MaterialButton(
-                            color: Colors.blue,
-                            child: const Center(
-                                child: Text(
-                              'Export to Excel',
-                              style: TextStyle(color: Colors.white),
-                            )),
-                            onPressed: _exportDataGridToExcel),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            SizedBox(
+                              height: 40.0,
+                              width: 150.0,
+                              child: MaterialButton(
+                                  color: Colors.blue,
+                                  child: const Center(
+                                      child: Text(
+                                    'Export to Excel',
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                                  onPressed: _exportDataGridToExcel),
+                            ),
+                          ],
+                        ),
                       ),
                       // FormBuilder(
                       //     key: _formKey,
