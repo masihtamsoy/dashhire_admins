@@ -79,6 +79,7 @@ class _JsonDataSourceDataGridState extends State {
         }
         gridColumn.add(
           GridColumn(
+            width: 100,
             visible: visible,
             columnName: k,
             label: Container(
@@ -224,17 +225,23 @@ class _JsonDataSourceDataGridState extends State {
                         data: SfDataGridThemeData(
                             headerColor: const Color(0xff009889)),
                         child: SfDataGrid(
-                            key: _key,
-                            gridLinesVisibility: GridLinesVisibility.both,
-                            headerGridLinesVisibility: GridLinesVisibility.both,
-                            source: jsonDataGridSource,
-                            frozenColumnsCount: 4,
-                            allowEditing: true,
-                            navigationMode: GridNavigationMode.cell,
-                            selectionMode: SelectionMode.multiple,
-                            // showCheckboxColumn: false,
-                            controller: _dataGridController,
-                            columns: gridColumn),
+                          key: _key,
+                          gridLinesVisibility: GridLinesVisibility.both,
+                          headerGridLinesVisibility: GridLinesVisibility.both,
+                          source: jsonDataGridSource,
+                          frozenColumnsCount: 4,
+                          allowEditing: true,
+                          navigationMode: GridNavigationMode.cell,
+                          selectionMode: SelectionMode.multiple,
+                          // showCheckboxColumn: false,
+                          controller: _dataGridController,
+                          columns: gridColumn,
+                          onQueryRowHeight: (details) {
+                            return details.getIntrinsicRowHeight(
+                                details.rowIndex,
+                                canIncludeHiddenColumns: false);
+                          },
+                        ),
                       ),
                     ],
                   ),
