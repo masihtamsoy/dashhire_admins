@@ -48,7 +48,7 @@ class _JsonDataSourceDataGridState extends State {
       supa.SupabaseClient(SupaConstants.supabaseUrl, SupaConstants.supabaseKey);
 
   Future<List<GridColumn>> generateColumnList() async {
-    // print("generateItemList-------");
+    /// TODO: this must come from frontend cache or less exhaustive DB query
     final selectResponse =
         await client.from('candidates').select('*').execute();
 
@@ -74,9 +74,9 @@ class _JsonDataSourceDataGridState extends State {
       final Map<String, dynamic> myMap = list[0] as Map<String, dynamic>;
       myMap.forEach((k, v) {
         bool visible = true;
-        // if (k == "id" || k == "inserted_at" || k == "updated_at") {
-        //   visible = false;
-        // }
+        if (k == "id" || k == "inserted_at" || k == "updated_at") {
+          visible = false;
+        }
         gridColumn.add(
           GridColumn(
             visible: visible,
