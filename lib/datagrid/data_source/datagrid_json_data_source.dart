@@ -50,7 +50,7 @@ class _JsonDataSourceDataGridState extends State {
   Future<List<GridColumn>> generateColumnList() async {
     /// TODO: this must come from frontend cache or less exhaustive DB query
     final selectResponse =
-        await client.from('candidates').select('*').execute();
+        await client.from('candidate_data').select('*').execute();
 
     String responseBody = "";
     if (selectResponse.error == null) {
@@ -79,7 +79,6 @@ class _JsonDataSourceDataGridState extends State {
         }
         gridColumn.add(
           GridColumn(
-            width: 100,
             visible: visible,
             columnName: k,
             label: Container(
