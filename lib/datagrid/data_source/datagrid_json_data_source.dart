@@ -72,8 +72,13 @@ class _JsonDataSourceDataGridState extends State {
     if (list != null && list.length != 0) {
       final Map<String, dynamic> myMap = list[0] as Map<String, dynamic>;
       myMap.forEach((k, v) {
+        bool visible = true;
+        if (k == "id" || k == "inserted_at" || k == "updated_at") {
+          visible = false;
+        }
         gridColumn.add(
           GridColumn(
+            visible: visible,
             columnName: k,
             width: isWebOrDesktop ? 135 : 90,
             label: Container(
@@ -212,7 +217,7 @@ class _JsonDataSourceDataGridState extends State {
                           // gridLinesVisibility: GridLinesVisibility.both,
                           // headerGridLinesVisibility: GridLinesVisibility.both,
                           source: jsonDataGridSource,
-                          frozenColumnsCount: 4,
+                          frozenColumnsCount: 5,
                           allowEditing: true,
                           navigationMode: GridNavigationMode.cell,
                           selectionMode: SelectionMode.multiple,
