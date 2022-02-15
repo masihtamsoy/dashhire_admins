@@ -21,6 +21,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:syncfusion_flutter_datagrid_export/export.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart'
     hide Alignment, Column, Row, Border;
 
@@ -212,18 +213,22 @@ class _JsonDataSourceDataGridState extends State {
                       //             }),
                       //       ],
                       //     )),
-                      SfDataGrid(
-                          key: _key,
-                          // gridLinesVisibility: GridLinesVisibility.both,
-                          // headerGridLinesVisibility: GridLinesVisibility.both,
-                          source: jsonDataGridSource,
-                          // frozenColumnsCount: 5,
-                          allowEditing: true,
-                          navigationMode: GridNavigationMode.cell,
-                          selectionMode: SelectionMode.multiple,
-                          // showCheckboxColumn: false,
-                          controller: _dataGridController,
-                          columns: gridColumn),
+                      SfDataGridTheme(
+                        data: SfDataGridThemeData(
+                            headerColor: const Color(0xff009889)),
+                        child: SfDataGrid(
+                            key: _key,
+                            gridLinesVisibility: GridLinesVisibility.both,
+                            headerGridLinesVisibility: GridLinesVisibility.both,
+                            source: jsonDataGridSource,
+                            // frozenColumnsCount: 5,
+                            allowEditing: true,
+                            navigationMode: GridNavigationMode.cell,
+                            selectionMode: SelectionMode.multiple,
+                            // showCheckboxColumn: false,
+                            controller: _dataGridController,
+                            columns: gridColumn),
+                      ),
                     ],
                   ),
                 );
