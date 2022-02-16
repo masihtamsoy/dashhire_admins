@@ -220,8 +220,8 @@ class _JsonDataSourceDataGridState extends State {
                       //             }),
                       //       ],
                       //     )),
-                      Container(
-                        height: 650,
+                      Expanded(
+                        flex: 1,
                         child: SfDataGridTheme(
                           data: SfDataGridThemeData(
                               headerColor: const Color(0xff009889)),
