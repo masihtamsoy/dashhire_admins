@@ -49,7 +49,7 @@ class ListingDataGridSource extends DataGridSource {
   Future<void> generateItemList() async {
     // print("generateItemList-------");
     final selectResponse =
-        await client.from('candidate_data').select('*').execute();
+        await client.from('candidates_final').select('*').execute();
 
     String responseBody = "";
     if (selectResponse.error == null) {
@@ -307,7 +307,7 @@ class ListingDataGridSource extends DataGridSource {
     var id = dataGridRows[dataRowIndex].getCells()[0].value;
 
     final updateResponse = await client
-        .from("candidate_data")
+        .from("candidates_final")
         .update({currentColumnName: newCellValue})
         .eq('id', id)
         .execute();
