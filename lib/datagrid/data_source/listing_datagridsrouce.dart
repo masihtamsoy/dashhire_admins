@@ -1,5 +1,6 @@
 /// Dart import
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 /// Package import
 import 'package:flutter/material.dart';
@@ -217,6 +218,70 @@ class ListingDataGridSource extends DataGridSource {
     );
   }
 
+  bool isDatePickerVisible = false;
+
+  /// Building a [DatePicker] for datetime column.
+  Widget _buildDateTimePicker(String displayText, CellSubmit submitCell) {
+    /// TODO: set default good displayText
+    if (displayText == "") {
+      displayText = '2022-02-14';
+    }
+    final DateTime selectedDate = DateTime.parse(displayText);
+    final DateTime firstDate = DateTime.parse('2022-02-14');
+    final DateTime lastDate = DateTime.parse('2023-02-14');
+
+    displayText = DateFormat('MM/dd/yyyy').format(DateTime.parse(displayText));
+    return Builder(
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.all(8.0),
+          alignment: Alignment.centerRight,
+          child: Focus(
+            autofocus: true,
+            focusNode: FocusNode()
+              ..addListener(() async {
+                if (!isDatePickerVisible) {
+                  isDatePickerVisible = true;
+                  await showDatePicker(
+                          context: context,
+                          initialDate: selectedDate,
+                          firstDate: firstDate,
+                          lastDate: lastDate,
+                          builder: (BuildContext context, Widget? child) {
+                            return Theme(
+                              data: Theme.of(context).copyWith(
+                                  colorScheme: ColorScheme.light(
+                                      primary: Colors.purpleAccent)),
+                              child: child!,
+                            );
+                          },
+                          initialDatePickerMode: DatePickerMode.day)
+                      .then((DateTime? value) {
+                    if (value != null) {
+                      DateFormat dateFormat = DateFormat("yyyy-MM-dd");
+                      newCellValue = dateFormat.format(value);
+                    } else {
+                      newCellValue = value;
+                    }
+
+                    /// Call [CellSubmit] callback to fire the canSubmitCell and
+                    /// onCellSubmit to commit the new value in single place.
+                    submitCell();
+                    isDatePickerVisible = false;
+                  });
+                }
+              }),
+            child: Text(
+              displayText,
+              textAlign: TextAlign.right,
+              style: TextStyle(fontSize: 15),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   Future<void> getAtsConstants() async {
     final selectResponse =
         await client.from('ats_constants').select('*').execute();
@@ -258,11 +323,14 @@ class ListingDataGridSource extends DataGridSource {
     // Loop over ats_constants to know about fields, in case field_type is defined
     // as dropdown render _buildDropDownWidget
     List<String> options = [];
+    bool showDate = false;
     atsConstantItems.forEach((x) {
       if (column.columnName == x['field_name']) {
         if (x['field_type'] == 'dropdown') {
           List metadata = x['metadata'] as List;
           options = metadata.map((x) => x['name'] as String).toList();
+        } else if (x['field_type'] == 'date') {
+          showDate = true;
         }
       }
     });
@@ -276,6 +344,8 @@ class ListingDataGridSource extends DataGridSource {
         mutantDisplayText = 'none';
       }
       return _buildDropDownWidget(mutantDisplayText, submitCell, options);
+    } else if (showDate) {
+      return _buildDateTimePicker(displayText, submitCell);
     } else {
       return _buildTextFieldWidget(displayText, column, submitCell);
     }
@@ -319,7 +389,7 @@ class ListingDataGridSource extends DataGridSource {
       // print('response.data: ${updateResponse.data}');
     } else {
       /// Handle error better
-      print('Error');
+      print(updateResponse.error);
       // print('>>>>>>>>>>>>>>>>>>>updateResponse.error: ${updateResponse.error}');
       // FocusScope.of(context).unfocus();
       // ScaffoldMessenger.of(context).showSnackBar(
