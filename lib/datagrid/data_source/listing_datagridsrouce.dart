@@ -145,9 +145,9 @@ class ListingDataGridSource extends DataGridSource {
 
     return Container(
       padding: const EdgeInsets.all(8.0),
-      alignment:
-          isTextAlignRight ? Alignment.centerRight : Alignment.centerLeft,
       child: TextField(
+        expands: true,
+        maxLines: null,
         autofocus: true,
         controller: editingController..text = displayText,
         textAlign: isTextAlignRight ? TextAlign.right : TextAlign.left,
@@ -211,7 +211,7 @@ class ListingDataGridSource extends DataGridSource {
               dropDownMenuItems.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
-              child: Text(value),
+              child: Text(value, style: TextStyle(fontSize: 14)),
             );
           }).toList()),
     );
