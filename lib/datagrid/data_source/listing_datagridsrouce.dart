@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:dropdown_search/dropdown_search.dart';
 
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
@@ -187,6 +188,26 @@ class ListingDataGridSource extends DataGridSource {
     );
   }
 
+  /// Building a [DropDown search]
+  Widget _buildDropDownSearchWidget(String? displayText, CellSubmit submitCell,
+      List<String> dropDownMenuItems) {
+    return Container(
+        child: DropdownSearch<String>(
+            mode: Mode.MENU,
+            showSelectedItems: true,
+            items: dropDownMenuItems,
+            showSearchBox: true,
+            // label: "Menu mode",
+            // hint: "country in menu mode",
+            // popupItemDisabled: (String s) => s.startsWith('I'),
+            onChanged: (value) {
+              newCellValue = value;
+
+              submitCell();
+            },
+            selectedItem: displayText));
+  }
+
   /// Building a [DropDown] for combo box column.
   Widget _buildDropDownWidget(String? displayText, CellSubmit submitCell,
       List<String> dropDownMenuItems) {
@@ -324,9 +345,14 @@ class ListingDataGridSource extends DataGridSource {
     // as dropdown render _buildDropDownWidget
     List<String> options = [];
     bool showDate = false;
+    bool showDropdownSearch = false;
     atsConstantItems.forEach((x) {
       if (column.columnName == x['field_name']) {
-        if (x['field_type'] == 'dropdown') {
+        if (x['field_type'] == 'dropdown' ||
+            x['field_type'] == 'dropdownSearch') {
+          if (x['field_type'] == 'dropdownSearch') {
+            showDropdownSearch = true;
+          }
           List metadata = x['metadata'] as List;
           options = metadata.map((x) => x['name'] as String).toList();
         } else if (x['field_type'] == 'date') {
@@ -343,7 +369,12 @@ class ListingDataGridSource extends DataGridSource {
         options.add('none');
         mutantDisplayText = 'none';
       }
-      return _buildDropDownWidget(mutantDisplayText, submitCell, options);
+      if (showDropdownSearch) {
+        return _buildDropDownSearchWidget(
+            mutantDisplayText, submitCell, options);
+      } else {
+        return _buildDropDownWidget(mutantDisplayText, submitCell, options);
+      }
     } else if (showDate) {
       return _buildDateTimePicker(displayText, submitCell);
     } else {
