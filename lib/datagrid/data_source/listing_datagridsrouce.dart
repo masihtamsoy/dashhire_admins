@@ -261,16 +261,19 @@ class ListingDataGridSource extends DataGridSource {
     atsConstantItems.forEach((x) {
       if (column.columnName == x['field_name']) {
         if (x['field_type'] == 'dropdown') {
-          String optionsStr = x['metadata'] as String;
-          options = optionsStr.split(",") as List<String>;
+          List metadata = x['metadata'] as List;
+          options = metadata.map((x) => x['name'] as String).toList();
         }
       }
     });
 
     if (options.length != 0) {
       String mutantDisplayText = displayText;
+
+      /// There should be value from option to see dropdown widget
       if (displayText == null || displayText == "") {
-        mutantDisplayText = options[options.length - 1];
+        options.add('none');
+        mutantDisplayText = 'none';
       }
       return _buildDropDownWidget(mutantDisplayText, submitCell, options);
     } else {
