@@ -98,7 +98,7 @@ class _JsonDataSourceDataGridState extends State {
 
     /// Changing seconds effect render
     /// TODO: work on this issue
-    await Future.delayed(const Duration(seconds: 1), () {});
+    await Future.delayed(const Duration(seconds: 2), () {});
     // print("generateColumnList------------------");
 
     // setState(() {});

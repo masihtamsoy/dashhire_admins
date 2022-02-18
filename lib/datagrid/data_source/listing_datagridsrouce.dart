@@ -18,6 +18,7 @@ import '../../common/constant.dart';
 
 /// Local import
 import '../model/listing.dart';
+import '../../main.dart';
 
 /// DataGrid import
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
@@ -114,7 +115,6 @@ class ListingDataGridSource extends DataGridSource {
 
   ///---------------
   /// Cell Edit
-
   dynamic newCellValue;
 
   /// Help to control the editable text in [TextField] widget.
@@ -129,6 +129,40 @@ class ListingDataGridSource extends DataGridSource {
 
   RegExp _getRegExp(bool isNumericKeyBoard, String columnName) {
     return isNumericKeyBoard ? RegExp('[0-9]') : RegExp('[a-zA-Z ]');
+  }
+
+  Widget _buildTextFieldDialog(
+      String displayText, GridColumn column, CellSubmit submitCell) {
+    return TextButton(
+      onPressed: () async {
+        print("-------${displayText.runtimeType}---${column}");
+        var ab = json.encode(displayText);
+
+        // List myList = json.decode(displayText) as List;
+        // print(json.decode(ab).toList());
+        // json.decode(ab).forEach((v) => print(v));
+
+        // NavigationService.navigatorKey.currentContext;
+        // print(
+        //     "---print context: ${NavigationService.navigatorKey.currentContext}");
+        showDialog(
+            context:
+                NavigationService.navigatorKey.currentContext as BuildContext,
+            builder: (context) => AlertDialog(
+                  content: Column(
+                    children: <Widget>[Text('@todo')],
+                  ),
+                  actions: <Widget>[
+                    FlatButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text('OK')),
+                  ],
+                ));
+      },
+      child: const Text('Edit'),
+    );
   }
 
   /// Building a [TextField] for numeric and text column.
@@ -346,6 +380,7 @@ class ListingDataGridSource extends DataGridSource {
     List<String> options = [];
     bool showDate = false;
     bool showDropdownSearch = false;
+    bool showDialog = false;
     atsConstantItems.forEach((x) {
       if (column.columnName == x['field_name']) {
         if (x['field_type'] == 'dropdown' ||
@@ -357,6 +392,8 @@ class ListingDataGridSource extends DataGridSource {
           options = metadata.map((x) => x['name'] as String).toList();
         } else if (x['field_type'] == 'date') {
           showDate = true;
+        } else if (x['field_type'] == 'dialog') {
+          showDialog = true;
         }
       }
     });
@@ -377,6 +414,8 @@ class ListingDataGridSource extends DataGridSource {
       }
     } else if (showDate) {
       return _buildDateTimePicker(displayText, submitCell);
+    } else if (showDialog) {
+      return _buildTextFieldDialog(displayText, column, submitCell);
     } else {
       return _buildTextFieldWidget(displayText, column, submitCell);
     }

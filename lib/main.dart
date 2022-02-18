@@ -26,6 +26,10 @@ Future main() async {
   runApp(MyApp());
 }
 
+class NavigationService {
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+}
+
 class MyApp extends StatelessWidget {
   final ListingStore _listingStore = ListingStore();
   final DashStore _dashStore = DashStore();
@@ -42,6 +46,7 @@ class MyApp extends StatelessWidget {
           name: 'global-observer',
           builder: (context) {
             return MaterialApp(
+              navigatorKey: NavigationService.navigatorKey,
               title: 'Dashhire admins',
               theme: ThemeData.light(),
               initialRoute: '/',
