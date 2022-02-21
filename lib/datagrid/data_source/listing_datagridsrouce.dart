@@ -75,9 +75,15 @@ class ListingDataGridSource extends DataGridSource {
   List<DataGridCell<dynamic>> generateDataGridCell(String jsonStr) {
     Map<String, dynamic> myMap = json.decode(jsonStr) as Map<String, dynamic>;
     // print("+++++${myMap}");
+
     List<DataGridCell<dynamic>> dataCell = [];
     myMap.forEach((k, v) {
-      dataCell.add(DataGridCell(columnName: k, value: v));
+      if (v is List) {
+        List l = v as List;
+        dataCell.add(DataGridCell(columnName: k, value: json.encode(l)));
+      } else {
+        dataCell.add(DataGridCell(columnName: k, value: v));
+      }
     });
     return dataCell;
   }
@@ -135,8 +141,13 @@ class ListingDataGridSource extends DataGridSource {
       String displayText, GridColumn column, CellSubmit submitCell) {
     return TextButton(
       onPressed: () async {
-        print("-------${displayText.runtimeType}---${column}");
-        var ab = json.encode(displayText);
+        List skillList = jsonDecode(displayText) as List;
+        // print(
+        //     "-------${displayText.runtimeType}---${column}---$displayText---$skillList");
+        // // final skillList = jsonDecode(displayText);
+        print(skillList[0]["env"]);
+
+        skillList.add({"env": "js", "exp": 10});
 
         // List myList = json.decode(displayText) as List;
         // print(json.decode(ab).toList());
@@ -155,7 +166,10 @@ class ListingDataGridSource extends DataGridSource {
                   actions: <Widget>[
                     FlatButton(
                         onPressed: () {
+                          newCellValue = json.encode(skillList);
+
                           Navigator.pop(context);
+                          submitCell();
                         },
                         child: Text('OK')),
                   ],
