@@ -19,6 +19,8 @@ import '../../common/constant.dart';
 /// Local import
 import '../model/listing.dart';
 import '../../main.dart';
+import './inner_jsonmap.dart';
+import './inner_textfield.dart';
 
 /// DataGrid import
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
@@ -160,8 +162,12 @@ class ListingDataGridSource extends DataGridSource {
             context:
                 NavigationService.navigatorKey.currentContext as BuildContext,
             builder: (context) => AlertDialog(
-                  content: Column(
-                    children: <Widget>[Text('@todo')],
+                  content: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(width: 100, child: InnerJsonMap()),
+                      SizedBox(width: 100, child: InnerTextField())
+                    ],
                   ),
                   actions: <Widget>[
                     FlatButton(
