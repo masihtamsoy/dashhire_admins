@@ -1,5 +1,6 @@
 // Store
 import 'package:dash_widget/store/listing_store.dart';
+import 'datagrid/upload-data/upload_data.dart';
 import 'store/applications_store.dart';
 import 'store/dash_store.dart';
 
@@ -84,6 +85,7 @@ class MyApp extends StatelessWidget {
                     ),
                 '/is': (_) => const JsonDataSourceDataGrid(),
                 '/companies': (_) => CompanyListingScreen(),
+                '/upload_file': (_) => Upload(),
               },
               debugShowCheckedModeBanner: false,
               onGenerateRoute: generateRoute,
