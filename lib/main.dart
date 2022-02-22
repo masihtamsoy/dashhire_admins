@@ -17,6 +17,7 @@ import 'screens/signin_screen.dart';
 import 'screens/splash_screen.dart';
 import 'screens/web_home_screen.dart';
 import 'screens/admin_listing.dart';
+import 'screens/welcome.dart';
 import 'screens/internal_sheet.dart';
 import 'screens/companies_listing.dart';
 import './datagrid/data_source/datagrid_json_data_source.dart';
@@ -50,8 +51,9 @@ class MyApp extends StatelessWidget {
               navigatorKey: NavigationService.navigatorKey,
               title: 'Dashhire admins',
               theme: ThemeData.light(),
-              initialRoute: '/',
+              initialRoute: '/welcome',
               routes: <String, WidgetBuilder>{
+                '/welcome': (_) => WelcomeScreen(),
                 '/signIn': (_) => SignInScreen(),
                 '/profile': (_) => ProfileScreen(),
                 '/admins': (_) => AdminListing(),
