@@ -173,6 +173,11 @@ class ListingDataGridSource extends DataGridSource {
                     children: [
                       SkillsWidget(
                         skillList: skillList,
+                        mySubmitCell: (mySkills) {
+                          newCellValue = json.encode(mySkills);
+
+                          submitCell();
+                        },
                       ),
                       InnerListing(
                         skillList: skillList,
@@ -182,10 +187,7 @@ class ListingDataGridSource extends DataGridSource {
                   actions: <Widget>[
                     FlatButton(
                         onPressed: () {
-                          newCellValue = json.encode(skillList);
-
                           Navigator.pop(context);
-                          submitCell();
                         },
                         child: Text('OK')),
                   ],
