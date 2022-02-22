@@ -28,7 +28,7 @@ class _UploadState extends State<Upload> {
 
     final request = http.MultipartRequest(
       "POST",
-      Uri.parse("http://127.0.0.1:5000/getfile/instahyrefile"),
+      Uri.parse("http://3.225.111.137/api/getfile/instahyrefile"),
     );
 
 
@@ -50,7 +50,7 @@ class _UploadState extends State<Upload> {
 
     final request = http.MultipartRequest(
       "POST",
-      Uri.parse("http://127.0.0.1:5000/getfile/naukrifile"),
+      Uri.parse("http://3.225.111.137/api/getfile/instahyrefile"),
     );
 
 
