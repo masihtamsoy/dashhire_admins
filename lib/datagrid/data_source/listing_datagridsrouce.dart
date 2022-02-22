@@ -179,8 +179,14 @@ class ListingDataGridSource extends DataGridSource {
                           submitCell();
                         },
                       ),
+                      SizedBox(height: 20),
                       InnerListing(
                         skillList: skillList,
+                        mySubmitCell: (mySkills) {
+                          newCellValue = json.encode(mySkills);
+
+                          submitCell();
+                        },
                       )
                     ],
                   ),

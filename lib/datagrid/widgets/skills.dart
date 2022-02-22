@@ -130,7 +130,7 @@ class _SkillsWidgetState extends State<SkillsWidget> {
                     }
 
                     // skills.add(value);
-                    print("----$mySkills");
+                    // print("----$mySkills");
 
                     widget.mySubmitCell(mySkills);
                   } else {
