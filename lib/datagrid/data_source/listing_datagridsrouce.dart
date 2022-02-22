@@ -22,6 +22,7 @@ import '../../main.dart';
 import './inner_jsonmap.dart';
 import './inner_textfield.dart';
 import './inner_listing.dart';
+import '../widgets/skills.dart';
 
 /// DataGrid import
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
@@ -144,13 +145,18 @@ class ListingDataGridSource extends DataGridSource {
       String displayText, GridColumn column, CellSubmit submitCell) {
     return TextButton(
       onPressed: () async {
-        List skillList = jsonDecode(displayText) as List;
+        String mutantText = displayText;
+        List skillList = [];
+        if (mutantText == "") {
+        } else {
+          skillList = jsonDecode(displayText) as List;
+        }
         // print(
         //     "-------${displayText.runtimeType}---${column}---$displayText---$skillList");
         // // final skillList = jsonDecode(displayText);
-        print(skillList[0]["env"]);
+        // print(skillList[0]["env"]);
 
-        skillList.add({"env": "js", "exp": 10});
+        // skillList.add({"env": "js", "exp": 10});
 
         // List myList = json.decode(displayText) as List;
         // print(json.decode(ab).toList());
@@ -165,25 +171,23 @@ class ListingDataGridSource extends DataGridSource {
             builder: (context) => AlertDialog(
                   content: Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(width: 100, child: InnerJsonMap()),
-                          SizedBox(width: 100, child: InnerTextField())
-                        ],
+                      SkillsWidget(
+                        skillList: skillList,
+                        mySubmitCell: (mySkills) {
+                          newCellValue = json.encode(mySkills);
+
+                          submitCell();
+                        },
                       ),
-                      InnerListing()
-                      // SizedBox(width: 50, child: InnerListing())
-                      // Text("Here"),
+                      InnerListing(
+                        skillList: skillList,
+                      )
                     ],
                   ),
                   actions: <Widget>[
                     FlatButton(
                         onPressed: () {
-                          newCellValue = json.encode(skillList);
-
                           Navigator.pop(context);
-                          submitCell();
                         },
                         child: Text('OK')),
                   ],
