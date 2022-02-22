@@ -145,13 +145,18 @@ class ListingDataGridSource extends DataGridSource {
       String displayText, GridColumn column, CellSubmit submitCell) {
     return TextButton(
       onPressed: () async {
-        List skillList = jsonDecode(displayText) as List;
+        String mutantText = displayText;
+        List skillList = [];
+        if (mutantText == "") {
+        } else {
+          skillList = jsonDecode(displayText) as List;
+        }
         // print(
         //     "-------${displayText.runtimeType}---${column}---$displayText---$skillList");
         // // final skillList = jsonDecode(displayText);
-        print(skillList[0]["env"]);
+        // print(skillList[0]["env"]);
 
-        skillList.add({"env": "js", "exp": 10});
+        // skillList.add({"env": "js", "exp": 10});
 
         // List myList = json.decode(displayText) as List;
         // print(json.decode(ab).toList());
@@ -165,7 +170,14 @@ class ListingDataGridSource extends DataGridSource {
                 NavigationService.navigatorKey.currentContext as BuildContext,
             builder: (context) => AlertDialog(
                   content: Column(
-                    children: [SkillsWidget(), InnerListing()],
+                    children: [
+                      SkillsWidget(
+                        skillList: skillList,
+                      ),
+                      InnerListing(
+                        skillList: skillList,
+                      )
+                    ],
                   ),
                   actions: <Widget>[
                     FlatButton(

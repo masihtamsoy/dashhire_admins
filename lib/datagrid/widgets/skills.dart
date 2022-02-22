@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class SkillsWidget extends StatefulWidget {
-  SkillsWidget({Key? key}) : super(key: key);
+  final List skillList;
+  const SkillsWidget({Key? key, required this.skillList}) : super(key: key);
 
   @override
   State<SkillsWidget> createState() => _SkillsWidgetState();
@@ -68,9 +69,9 @@ class _SkillsWidgetState extends State<SkillsWidget> {
                 // validator: FormBuilderValidators.compose(
                 //     [FormBuilderValidators.required(context)]),
                 items: dropOption
-                    .map((gender) => DropdownMenuItem(
-                          value: gender,
-                          child: Text('$gender'),
+                    .map((option) => DropdownMenuItem(
+                          value: option,
+                          child: Text('$option'),
                         ))
                     .toList(),
               ),
@@ -106,6 +107,8 @@ class _SkillsWidgetState extends State<SkillsWidget> {
 
                   if (_formKey.currentState!.validate()) {
                     print(_formKey.currentState?.value);
+                    // Make API call to supbase
+
                   } else {
                     print("validation failed");
                   }
