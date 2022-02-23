@@ -148,6 +148,9 @@ class _JsonDataSourceDataGridState extends State {
                   ),
                 )
               : Scaffold(
+                  appBar: AppBar(
+                    title: const Text('Internal Sheet'),
+                  ),
                   body: Column(
                     children: [
                       Padding(

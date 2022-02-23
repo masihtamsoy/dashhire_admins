@@ -21,12 +21,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 onPressed: () {
                   Navigator.pushNamed(context, '/is');
                 },
-                child: Text("Internal Sheet")),
+                child: Text("Internal Sheet",
+                    style: const TextStyle(fontSize: 20))),
+            SizedBox(
+              height: 30,
+            ),
             TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/upload_file');
                 },
-                child: Text("Upload Sheets"))
+                child:
+                    Text("Upload Sheets", style: const TextStyle(fontSize: 20)))
           ]),
         ));
   }

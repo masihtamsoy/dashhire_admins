@@ -2,6 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
+
 class Upload extends StatefulWidget {
   const Upload({Key? key}) : super(key: key);
 
@@ -10,14 +11,11 @@ class Upload extends StatefulWidget {
 }
 
 class _UploadState extends State<Upload> {
-
   PlatformFile? objFile;
 
-  void chooseFileUsingFilePicker()async{
-    var result = await FilePicker.platform.pickFiles(
-        withReadStream: true
-    );
-    if(result != null){
+  void chooseFileUsingFilePicker() async {
+    var result = await FilePicker.platform.pickFiles(withReadStream: true);
+    if (result != null) {
       setState(() {
         objFile = result.files.single;
       });
@@ -25,20 +23,14 @@ class _UploadState extends State<Upload> {
   }
 
   void uploadSelectedFileInstaHyre() async {
-
     final request = http.MultipartRequest(
       "POST",
       Uri.parse("http://3.225.111.137/api/getfile/instahyrefile"),
     );
 
-
     request.files.add(http.MultipartFile(
-        "file",
-        (objFile!.readStream)!,
-        objFile!.size,
-        filename: objFile!.name
-    ));
-
+        "file", (objFile!.readStream)!, objFile!.size,
+        filename: objFile!.name));
 
     var resp = await request.send();
 
@@ -46,21 +38,16 @@ class _UploadState extends State<Upload> {
 
     print(result);
   }
+
   void uploadSelectedFileNaukri() async {
-
     final request = http.MultipartRequest(
       "POST",
-      Uri.parse("http://3.225.111.137/api/getfile/instahyrefile"),
+      Uri.parse("http://3.225.111.137/api/getfile/naukrifile"),
     );
 
-
     request.files.add(http.MultipartFile(
-        "file",
-        (objFile!.readStream)!,
-        objFile!.size,
-        filename: objFile!.name
-    ));
-
+        "file", (objFile!.readStream)!, objFile!.size,
+        filename: objFile!.name));
 
     var resp = await request.send();
 
@@ -68,46 +55,58 @@ class _UploadState extends State<Upload> {
 
     print(result);
   }
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
-                child: const Text(
-                  'Choose File',
-                ),
-                onPressed: () => chooseFileUsingFilePicker()
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Upload File'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                  child: const Text(
+                    'Choose File',
+                  ),
+                  onPressed: () => chooseFileUsingFilePicker()),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                    onPressed: () => uploadSelectedFileInstaHyre(),
-                    child: const Text(
-                        'Upload From InstaHyre'
-                    )
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                      onPressed: () => uploadSelectedFileInstaHyre(),
+                      child: const Text('Upload From InstaHyre')),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                    onPressed: () => uploadSelectedFileNaukri(),
-                    child: const Text(
-                        'Upload From Naukri.Com'
-                    )
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                      onPressed: () => uploadSelectedFileNaukri(),
+                      child: const Text('Upload From Naukri.Com')),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+            SizedBox(
+              height: 60,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/is');
+                    },
+                    child: Text("Internal Sheet",
+                        style: const TextStyle(fontSize: 20)))
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
