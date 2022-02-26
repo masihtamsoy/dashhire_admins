@@ -32,6 +32,20 @@ mixin _$DataGridStore on DataGridStoreBase, Store {
     return _$generateDataAsyncAction.run(() => super.generateData(tableName));
   }
 
+  final _$DataGridStoreBaseActionController =
+      ActionController(name: 'DataGridStoreBase');
+
+  @override
+  void setData(List<dynamic> items) {
+    final _$actionInfo = _$DataGridStoreBaseActionController.startAction(
+        name: 'DataGridStoreBase.setData');
+    try {
+      return super.setData(items);
+    } finally {
+      _$DataGridStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

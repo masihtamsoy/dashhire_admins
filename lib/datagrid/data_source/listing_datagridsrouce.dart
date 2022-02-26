@@ -11,7 +11,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import '../../store/dash_store.dart';
+import '../../store/datagrid_store.dart';
 
 import 'package:supabase/supabase.dart' as supa;
 import '../../common/constant.dart';
@@ -39,7 +39,7 @@ class ListingDataGridSource extends DataGridSource {
   Future<void> _populateData(String _sampleType) async {
     await generateItemList();
     await getAtsConstants();
-    buildDataGridRow(_sampleType);
+    buildDataGridRow(_sampleType, []);
   }
 
   /// Instance of an item.
@@ -54,6 +54,13 @@ class ListingDataGridSource extends DataGridSource {
 
   // Populate Data from the json file
   Future<void> generateItemList() async {
+    BuildContext context =
+        NavigationService.navigatorKey.currentContext as BuildContext;
+    // Provider.of<DataGridStore>(context, listen: false)
+    //     .generateData('candidates_final');
+
+    // items = Provider.of<DataGridStore>(context, listen: false).data!;
+
     // print("generateItemList-------");
     final selectResponse =
         await client.from('candidates_final').select('*').execute();
@@ -74,6 +81,12 @@ class ListingDataGridSource extends DataGridSource {
         .map<ListingSchema>((dynamic json) =>
             ListingSchema.fromJson(json as Map<String, dynamic>))
         .toList() as List<ListingSchema>;
+    print("+++++HERE-----");
+
+    final dynamic mylist =
+        await json.decode(responseBody).cast<Map<String, dynamic>>();
+
+    Provider.of<DataGridStore>(context, listen: false).setData(mylist as List);
   }
 
   List<DataGridCell<dynamic>> generateDataGridCell(String jsonStr) {
@@ -93,18 +106,29 @@ class ListingDataGridSource extends DataGridSource {
   }
 
   /// Building DataGridRows
-  void buildDataGridRow(String _sampleType) {
-    dataGridRows = items.map<DataGridRow>((ListingSchema item) {
-      if (_sampleType == 'JSON') {
-        // print("*********${item.metadata}");
-        String jsonStr = json.encode(item.metadata);
+  void buildDataGridRow(String _sampleType, List newItems) {
+    if (newItems != null && newItems.length > 0) {
+      dataGridRows = newItems.map((item) {
+        String jsonStr = json.encode(item);
         List<DataGridCell<dynamic>> dataGridCells =
             generateDataGridCell(jsonStr);
         return DataGridRow(cells: dataGridCells);
-      } else {
-        return const DataGridRow(cells: <DataGridCell<String>>[]);
-      }
-    }).toList();
+      }).toList();
+      // newItems
+    } else {
+      print("}}}}}}}}}}}}$items");
+      dataGridRows = items.map<DataGridRow>((ListingSchema item) {
+        if (_sampleType == 'JSON') {
+          // print("*********${item.metadata}");
+          String jsonStr = json.encode(item.metadata);
+          List<DataGridCell<dynamic>> dataGridCells =
+              generateDataGridCell(jsonStr);
+          return DataGridRow(cells: dataGridCells);
+        } else {
+          return const DataGridRow(cells: <DataGridCell<String>>[]);
+        }
+      }).toList();
+    }
   }
 
   // Overrides
@@ -419,6 +443,7 @@ class ListingDataGridSource extends DataGridSource {
     bool showDate = false;
     bool showDropdownSearch = false;
     bool showDialog = false;
+    bool showFilterTextField = false;
     atsConstantItems.forEach((x) {
       if (column.columnName == x['field_name']) {
         if (x['field_type'] == 'dropdown' ||
@@ -432,6 +457,8 @@ class ListingDataGridSource extends DataGridSource {
           showDate = true;
         } else if (x['field_type'] == 'dialog') {
           showDialog = true;
+        } else if (x['field_type'] == 'filter_textfield') {
+          showFilterTextField = true;
         }
       }
     });
@@ -503,5 +530,9 @@ class ListingDataGridSource extends DataGridSource {
       // ScaffoldMessenger.of(context).showSnackBar(
       //     SnackBar(content: Text(updateResponse.error.message)));
     }
+  }
+
+  void updateDataGridSource() {
+    notifyListeners();
   }
 }

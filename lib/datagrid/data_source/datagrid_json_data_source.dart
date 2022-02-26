@@ -6,6 +6,8 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:supabase/supabase.dart' as supa;
 import '../../common/constant.dart';
+import 'package:provider/provider.dart';
+import '../../store/datagrid_store.dart';
 
 /// Local import
 import '../data_source/listing_datagridsrouce.dart';
@@ -48,6 +50,9 @@ class _JsonDataSourceDataGridState extends State {
       supa.SupabaseClient(SupaConstants.supabaseUrl, SupaConstants.supabaseKey);
 
   Future<List<GridColumn>> generateColumnList() async {
+    print("+++++++++++++++");
+    print(Provider.of<DataGridStore>(context, listen: true).data);
+
     /// TODO: this must come from frontend cache or less exhaustive DB query
     final selectResponse =
         await client.from('candidates_final').select('*').execute();
@@ -62,13 +67,6 @@ class _JsonDataSourceDataGridState extends State {
 
     final dynamic list =
         await json.decode(responseBody).cast<Map<String, dynamic>>();
-
-    // print("------$list");
-
-    // final String responseBody =
-    //     await rootBundle.loadString('/candidate_data.json');
-    // final dynamic list =
-    //     await json.decode(responseBody).cast<Map<String, dynamic>>();
 
     if (list != null && list.length != 0) {
       final Map<String, dynamic> myMap = list[0] as Map<String, dynamic>;
@@ -224,6 +222,27 @@ class _JsonDataSourceDataGridState extends State {
                       //             }),
                       //       ],
                       //     )),
+                      TextButton(
+                          child: const Text('Add row'),
+                          onPressed: () {
+                            List? data = Provider.of<DataGridStore>(context,
+                                    listen: false)
+                                .data;
+
+                            // data?.forEach((element) {
+                            //   print(element);
+                            // });
+
+                            data!.removeWhere((item) => item['total_exp'] == 5);
+
+                            // print("---------$data");
+
+                            jsonDataGridSource.buildDataGridRow('JSON', data);
+                            jsonDataGridSource.updateDataGridSource();
+                            // _employees.add(Employee(10011, 'Steve', 'Designer', 15000));
+                            // _employeeDataSource.buildDataGridRows();
+                            // _employeeDataSource.updateDataGridSource();
+                          }),
                       Expanded(
                         flex: 1,
                         child: SfDataGridTheme(

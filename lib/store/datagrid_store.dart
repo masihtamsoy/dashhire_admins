@@ -18,6 +18,11 @@ abstract class DataGridStoreBase with Store {
   List? data;
 
   @action
+  void setData(List items) {
+    data = items;
+  }
+
+  @action
   Future<void> generateData(String tableName) async {
     final selectResponse = await client.from(tableName).select('*').execute();
 

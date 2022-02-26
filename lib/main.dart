@@ -3,6 +3,7 @@ import 'package:dash_widget/store/listing_store.dart';
 import 'datagrid/upload-data/upload_data.dart';
 import 'store/applications_store.dart';
 import 'store/dash_store.dart';
+import 'store/datagrid_store.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class NavigationService {
 class MyApp extends StatelessWidget {
   final ListingStore _listingStore = ListingStore();
   final DashStore _dashStore = DashStore();
+  final DataGridStore _dataGridStore = DataGridStore();
 
   // This widget is the root of your application.
   @override
@@ -43,6 +45,7 @@ class MyApp extends StatelessWidget {
       providers: [
         Provider<ListingStore>(create: (_) => _listingStore),
         Provider<DashStore>(create: (_) => _dashStore),
+        Provider<DataGridStore>(create: (_) => _dataGridStore),
       ],
       child: Observer(
           name: 'global-observer',
