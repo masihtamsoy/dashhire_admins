@@ -11,6 +11,7 @@ import '../../store/datagrid_store.dart';
 
 /// Local import
 import '../data_source/listing_datagridsrouce.dart';
+import '../widgets/datagrid_filter.dart';
 
 // // Platform specific import
 // import '../../common/export/save_file_mobile.dart'
@@ -243,6 +244,8 @@ class _JsonDataSourceDataGridState extends State {
                             // _employeeDataSource.buildDataGridRows();
                             // _employeeDataSource.updateDataGridSource();
                           }),
+
+                      DataGridFilterWidget(mySubmitCell: () {}),
                       Expanded(
                         flex: 1,
                         child: SfDataGridTheme(
