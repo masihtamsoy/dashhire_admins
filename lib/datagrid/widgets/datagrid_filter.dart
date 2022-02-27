@@ -19,13 +19,27 @@ class DataGridFilterWidget extends StatefulWidget {
 class _DataGridFilterWidgetState extends State<DataGridFilterWidget> {
   final _formKey = GlobalKey<FormBuilderState>();
 
-  List dropOption = [
-    "Node Js",
-    "React JS",
-    "Express JS",
-    "Next JS",
-    "Vue JS",
-  ];
+  List dropOption = ["yes", "no"];
+
+  void _onChangedVerified(dynamic val) {
+    List? data = Provider.of<DataGridStore>(context, listen: false).data;
+    List? filterData = [];
+    data?.forEach((element) {
+      if (element['verified'] != null) {
+        String name = element['verified'] as String;
+        String keyword = val as String;
+
+        bool has =
+            RegExp(RegExp.escape(keyword), caseSensitive: false).hasMatch(name);
+        if (has) {
+          filterData.add(element);
+        }
+      }
+    });
+
+    widget.dataGridSource.buildDataGridRow('JSON', filterData);
+    widget.dataGridSource.updateDataGridSource();
+  }
 
   void _onChanged(dynamic val) {
     List? data = Provider.of<DataGridStore>(context, listen: false).data;
@@ -49,96 +63,67 @@ class _DataGridFilterWidgetState extends State<DataGridFilterWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        FormBuilder(
-          key: _formKey,
-          // autovalidate: true,
-          child: Column(
+    return Container(
+      margin: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.all(3.0),
+      decoration: BoxDecoration(border: Border.all(color: Colors.blueAccent)),
+      child: FormBuilder(
+        key: _formKey,
+        // autovalidate: true,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              // FormBuilderDropdown(
-              //   name: 'name',
-              //   decoration: InputDecoration(
-              //     labelText: 'Name',
-              //   ),
-              //   // initialValue: 'Male',
-              //   allowClear: true,
-              //   hint: Text('Name'),
-              //   // validator: FormBuilderValidators.compose(
-              //   //     [FormBuilderValidators.required(context)]),
-              //   items: dropOption
-              //       .map((option) => DropdownMenuItem(
-              //             value: option,
-              //             child: Text('$option'),
-              //           ))
-              //       .toList(),
-              // ),
-              FormBuilderTextField(
-                name: 'name',
-                decoration: InputDecoration(
-                  labelText: 'Name',
+              SizedBox(
+                width: 150,
+                child: FormBuilderTextField(
+                  name: 'nameFilter',
+
+                  decoration: InputDecoration(
+                      labelText: 'Name',
+                      contentPadding: const EdgeInsets.fromLTRB(0, 0, 0, 16.0),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.deepPurple))),
+                  // s
+                  onChanged: _onChanged,
+                  // valueTransformer: (text) => num.tryParse(text),
+                  // validator: FormBuilderValidators.compose([
+                  //   FormBuilderValidators.required(context),
+                  //   FormBuilderValidators.numeric(context),
+                  //   FormBuilderValidators.max(context, 70),
+                  // ]),
+                  keyboardType: TextInputType.name,
                 ),
-                onChanged: _onChanged,
-                // valueTransformer: (text) => num.tryParse(text),
-                // validator: FormBuilderValidators.compose([
-                //   FormBuilderValidators.required(context),
-                //   FormBuilderValidators.numeric(context),
-                //   FormBuilderValidators.max(context, 70),
-                // ]),
-                keyboardType: TextInputType.name,
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              SizedBox(
+                width: 200,
+                child: FormBuilderDropdown(
+                  name: 'verifiedFilter',
+                  decoration: InputDecoration(
+                    labelText: 'Verified',
+                  ),
+                  // initialValue: 'Male',
+                  allowClear: true,
+                  onChanged: _onChangedVerified,
+                  // hint: Text('Verified'),
+                  // validator: FormBuilderValidators.compose(
+                  //     [FormBuilderValidators.required(context)]),
+                  items: dropOption
+                      .map((option) => DropdownMenuItem(
+                            value: option,
+                            child: Text('$option'),
+                          ))
+                      .toList(),
+                ),
               ),
             ],
           ),
         ),
-        SizedBox(height: 20),
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: MaterialButton(
-                color: Theme.of(context).colorScheme.secondary,
-                child: Text(
-                  "Submit",
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () {
-                  _formKey.currentState?.save();
-
-                  if (_formKey.currentState!.validate()) {
-                    print(Provider.of<DataGridStore>(context, listen: false)
-                        .data);
-                    // // print(_formKey.currentState?.value);
-                    // // Make API call to supbase
-                    // Map value = _formKey.currentState?.value as Map;
-                    // List skills = widget.data;
-                    // List mySkills = [];
-
-                    // bool found = false;
-                    // skills.forEach((m) {
-                    //   if (m['env'] == value['env']) {
-                    //     found = true;
-                    //     mySkills.add(value);
-                    //   } else {
-                    //     mySkills.add(m);
-                    //   }
-                    // });
-
-                    // if (found == false) {
-                    //   mySkills.add(value);
-                    // }
-
-                    // // skills.add(value);
-                    // // print("----$mySkills");
-
-                    // widget.mySubmitCell(mySkills);
-                  } else {
-                    print("validation failed");
-                  }
-                },
-              ),
-            ),
-          ],
-        )
-      ],
+      ),
     );
   }
 }
