@@ -270,6 +270,9 @@ class _JsonDataSourceDataGridState extends State {
                                   details.rowIndex,
                                   canIncludeHiddenColumns: false);
                             },
+
+                            allowSorting: true,
+                            allowMultiColumnSorting: true,
                           ),
                         ),
                       ),
