@@ -31,13 +31,15 @@ class _DataGridFilterWidgetState extends State<DataGridFilterWidget> {
     List? data = Provider.of<DataGridStore>(context, listen: false).data;
     List? filterData = [];
     data?.forEach((element) {
-      String name = element['name'] as String;
-      String keyword = val as String;
+      if (element['name'] != null) {
+        String name = element['name'] as String;
+        String keyword = val as String;
 
-      bool has =
-          RegExp(RegExp.escape(keyword), caseSensitive: false).hasMatch(name);
-      if (has) {
-        filterData.add(element);
+        bool has =
+            RegExp(RegExp.escape(keyword), caseSensitive: false).hasMatch(name);
+        if (has) {
+          filterData.add(element);
+        }
       }
     });
 
