@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../store/datagrid_store.dart';
+import '../data_source/listing_datagridsrouce.dart';
+
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class DataGridFilterWidget extends StatefulWidget {
   final mySubmitCell;
-  const DataGridFilterWidget({Key? key, required this.mySubmitCell})
+  final ListingDataGridSource dataGridSource;
+  const DataGridFilterWidget(
+      {Key? key, required this.mySubmitCell, required this.dataGridSource})
       : super(key: key);
 
   @override
@@ -21,35 +25,25 @@ class _DataGridFilterWidgetState extends State<DataGridFilterWidget> {
     "Express JS",
     "Next JS",
     "Vue JS",
-    "Angular",
-    "Typescript",
-    "Dot net",
-    "PHP",
-    "HTML",
-    "CSS",
-    "C#",
-    "C",
-    "Spring",
-    "Springboot",
-    "Django",
-    "Flask",
-    "React native",
-    "Kotlin",
-    "Flutter",
-    "System Architecture",
-    "Low level design",
-    "High level design",
-    "AWS",
-    "Azure",
-    "GCP",
-    "Jenkins",
-    "Selenium",
-    "Linux",
-    "Kafka",
-    "SQL",
-    "No SQL",
-    "Mongo DB"
   ];
+
+  void _onChanged(dynamic val) {
+    List? data = Provider.of<DataGridStore>(context, listen: false).data;
+    List? filterData = [];
+    data?.forEach((element) {
+      String name = element['name'] as String;
+      String keyword = val as String;
+
+      bool has =
+          RegExp(RegExp.escape(keyword), caseSensitive: false).hasMatch(name);
+      if (has) {
+        filterData.add(element);
+      }
+    });
+
+    widget.dataGridSource.buildDataGridRow('JSON', filterData);
+    widget.dataGridSource.updateDataGridSource();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +76,7 @@ class _DataGridFilterWidgetState extends State<DataGridFilterWidget> {
                 decoration: InputDecoration(
                   labelText: 'Name',
                 ),
-                // onChanged: _onChanged,
+                onChanged: _onChanged,
                 // valueTransformer: (text) => num.tryParse(text),
                 // validator: FormBuilderValidators.compose([
                 //   FormBuilderValidators.required(context),

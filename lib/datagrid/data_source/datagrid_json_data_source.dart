@@ -223,29 +223,31 @@ class _JsonDataSourceDataGridState extends State {
                       //             }),
                       //       ],
                       //     )),
-                      TextButton(
-                          child: const Text('Add row'),
-                          onPressed: () {
-                            List? data = Provider.of<DataGridStore>(context,
-                                    listen: false)
-                                .data;
+                      // TextButton(
+                      //     child: const Text('Add row'),
+                      //     onPressed: () {
+                      //       List? data = Provider.of<DataGridStore>(context,
+                      //               listen: false)
+                      //           .data;
 
-                            // data?.forEach((element) {
-                            //   print(element);
-                            // });
+                      //       // data?.forEach((element) {
+                      //       //   print(element);
+                      //       // });
 
-                            data!.removeWhere((item) => item['total_exp'] == 5);
+                      //       data!.removeWhere((item) => item['total_exp'] == 5);
 
-                            // print("---------$data");
+                      //       // print("---------$data");
 
-                            jsonDataGridSource.buildDataGridRow('JSON', data);
-                            jsonDataGridSource.updateDataGridSource();
-                            // _employees.add(Employee(10011, 'Steve', 'Designer', 15000));
-                            // _employeeDataSource.buildDataGridRows();
-                            // _employeeDataSource.updateDataGridSource();
-                          }),
+                      //       jsonDataGridSource.buildDataGridRow('JSON', data);
+                      //       jsonDataGridSource.updateDataGridSource();
+                      //       // _employees.add(Employee(10011, 'Steve', 'Designer', 15000));
+                      //       // _employeeDataSource.buildDataGridRows();
+                      //       // _employeeDataSource.updateDataGridSource();
+                      //     }),
 
-                      DataGridFilterWidget(mySubmitCell: () {}),
+                      DataGridFilterWidget(
+                          mySubmitCell: () {},
+                          dataGridSource: jsonDataGridSource),
                       Expanded(
                         flex: 1,
                         child: SfDataGridTheme(
