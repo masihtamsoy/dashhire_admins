@@ -83,10 +83,14 @@ class ListingDataGridSource extends DataGridSource {
         .toList() as List<ListingSchema>;
     print("+++++HERE-----");
 
-    final dynamic mylist =
-        await json.decode(responseBody).cast<Map<String, dynamic>>();
+    final dynamic mylist = await json.decode(responseBody).toList();
 
+    /// data is used else where
     Provider.of<DataGridStore>(context, listen: false).setData(mylist as List);
+
+    /// name filter works on filterData
+    Provider.of<DataGridStore>(context, listen: false)
+        .setFilterData(mylist as List);
   }
 
   List<DataGridCell<dynamic>> generateDataGridCell(String jsonStr) {

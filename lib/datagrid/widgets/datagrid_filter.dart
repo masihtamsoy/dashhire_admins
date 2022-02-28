@@ -35,8 +35,8 @@ class _DataGridFilterWidgetState extends State<DataGridFilterWidget> {
       widget.dataGridSource.buildDataGridRow('JSON', data);
 
       /// verified set filterData, find name from filterData
-      Provider.of<DataGridStore>(context, listen: false)
-          .setFilterData(filterData);
+      /// no verified set filterData
+      Provider.of<DataGridStore>(context, listen: false).setFilterData(data!);
       widget.dataGridSource.updateDataGridSource();
     } else {
       data?.forEach((element) {
@@ -85,8 +85,8 @@ class _DataGridFilterWidgetState extends State<DataGridFilterWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(15.0),
-      padding: const EdgeInsets.all(3.0),
+      margin: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(2.0),
       decoration: BoxDecoration(border: Border.all(color: Colors.blueAccent)),
       child: FormBuilder(
         key: _formKey,
