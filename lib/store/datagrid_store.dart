@@ -43,8 +43,7 @@ abstract class DataGridStoreBase with Store {
       responseBody = json.encode("[]");
     }
 
-    final dynamic list =
-        await json.decode(responseBody).cast<Map<String, dynamic>>();
+    final dynamic list = await json.decode(responseBody).toList();
 
     data = list as List;
     // print("data---------$data");

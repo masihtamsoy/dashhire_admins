@@ -21,14 +21,24 @@ class _DataGridFilterWidgetState extends State<DataGridFilterWidget> {
 
   List dropOption = ["yes", "no"];
 
-  void _onChangedVerified(dynamic val) {
+  void _onChangedVerified(dynamic val) async {
+    // Make api call to update data from server
+    await Provider.of<DataGridStore>(context, listen: false)
+        .generateData('candidates_final');
+
+    List? data = Provider.of<DataGridStore>(context, listen: false).data;
+
     List? filterData = [];
     if (val == null || val == "") {
-      // Make api call to update data from server
+      /// verified set filterData, find name from filterData
+      Provider.of<DataGridStore>(context, listen: false).setData(data!);
+      widget.dataGridSource.buildDataGridRow('JSON', data);
+
+      /// verified set filterData, find name from filterData
       Provider.of<DataGridStore>(context, listen: false)
-          .generateData('candidates_final');
+          .setFilterData(filterData);
+      widget.dataGridSource.updateDataGridSource();
     } else {
-      List? data = Provider.of<DataGridStore>(context, listen: false).data;
       data?.forEach((element) {
         if (element['verified'] != null) {
           String name = element['verified'] as String;
@@ -45,10 +55,10 @@ class _DataGridFilterWidgetState extends State<DataGridFilterWidget> {
       /// verified set filterData, find name from filterData
       Provider.of<DataGridStore>(context, listen: false)
           .setFilterData(filterData);
-    }
 
-    widget.dataGridSource.buildDataGridRow('JSON', filterData);
-    widget.dataGridSource.updateDataGridSource();
+      widget.dataGridSource.buildDataGridRow('JSON', filterData);
+      widget.dataGridSource.updateDataGridSource();
+    }
   }
 
   void _onChanged(dynamic val) {
