@@ -24,6 +24,21 @@ mixin _$DataGridStore on DataGridStoreBase, Store {
     });
   }
 
+  final _$filterDataAtom = Atom(name: 'DataGridStoreBase.filterData');
+
+  @override
+  List<dynamic>? get filterData {
+    _$filterDataAtom.reportRead();
+    return super.filterData;
+  }
+
+  @override
+  set filterData(List<dynamic>? value) {
+    _$filterDataAtom.reportWrite(value, super.filterData, () {
+      super.filterData = value;
+    });
+  }
+
   final _$generateDataAsyncAction =
       AsyncAction('DataGridStoreBase.generateData');
 
@@ -47,9 +62,21 @@ mixin _$DataGridStore on DataGridStoreBase, Store {
   }
 
   @override
+  void setFilterData(List<dynamic> items) {
+    final _$actionInfo = _$DataGridStoreBaseActionController.startAction(
+        name: 'DataGridStoreBase.setFilterData');
+    try {
+      return super.setFilterData(items);
+    } finally {
+      _$DataGridStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-data: ${data}
+data: ${data},
+filterData: ${filterData}
     ''';
   }
 }

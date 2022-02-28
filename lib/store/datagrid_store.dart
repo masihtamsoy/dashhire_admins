@@ -17,9 +17,18 @@ abstract class DataGridStoreBase with Store {
   @observable
   List? data;
 
+  /// verified set filterData, find name from filterData
+  @observable
+  List? filterData;
+
   @action
   void setData(List items) {
     data = items;
+  }
+
+  @action
+  void setFilterData(List items) {
+    filterData = items;
   }
 
   @action
@@ -38,6 +47,6 @@ abstract class DataGridStoreBase with Store {
         await json.decode(responseBody).cast<Map<String, dynamic>>();
 
     data = list as List;
-    print(data);
+    // print("data---------$data");
   }
 }
