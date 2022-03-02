@@ -60,21 +60,8 @@ class ListingDataGridSource extends DataGridSource {
     //     .generateData('candidates_final');
 
     // items = Provider.of<DataGridStore>(context, listen: false).data!;
+    String responseBody = await SupaConstants.all_candidate();
 
-    // print("generateItemList-------");
-    final selectResponse =
-        await client.from('candidates_final').select('*').execute();
-
-    String responseBody = "";
-    if (selectResponse.error == null) {
-      // print('response.data: ${selectResponse.data}');
-      responseBody = json.encode(selectResponse.data);
-    } else {
-      responseBody = json.encode("[]");
-    }
-
-    // final String responseBody =
-    //     await rootBundle.loadString('/candidate_data.json');
     final dynamic list =
         await json.decode(responseBody).cast<Map<String, dynamic>>();
     items = await list

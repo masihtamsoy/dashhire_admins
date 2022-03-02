@@ -33,15 +33,9 @@ abstract class DataGridStoreBase with Store {
 
   @action
   Future<void> generateData(String tableName) async {
-    final selectResponse = await client.from(tableName).select('*').execute();
+    // final selectResponse = await client.from(tableName).select('*').execute();
 
-    String responseBody = "";
-    if (selectResponse.error == null) {
-      // print('response.data: ${selectResponse.data}');
-      responseBody = json.encode(selectResponse.data);
-    } else {
-      responseBody = json.encode("[]");
-    }
+    String responseBody = await SupaConstants.all_candidate();
 
     final dynamic list = await json.decode(responseBody).toList();
 

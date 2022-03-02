@@ -54,17 +54,7 @@ class _JsonDataSourceDataGridState extends State {
     print("+++++++++++++++");
     print(Provider.of<DataGridStore>(context, listen: true).data);
 
-    /// TODO: this must come from frontend cache or less exhaustive DB query
-    final selectResponse =
-        await client.from('candidates_final').select('*').execute();
-
-    String responseBody = "";
-    if (selectResponse.error == null) {
-      // print('response.data: ${selectResponse.data}');
-      responseBody = json.encode(selectResponse.data);
-    } else {
-      responseBody = json.encode("[]");
-    }
+    String responseBody = await SupaConstants.all_candidate();
 
     final dynamic list =
         await json.decode(responseBody).cast<Map<String, dynamic>>();

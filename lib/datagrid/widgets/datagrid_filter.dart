@@ -36,7 +36,7 @@ class _DataGridFilterWidgetState extends State<DataGridFilterWidget> {
 
       /// verified set filterData, find name from filterData
       /// no verified set filterData
-      Provider.of<DataGridStore>(context, listen: false).setFilterData(data!);
+      Provider.of<DataGridStore>(context, listen: false).setFilterData(data);
       widget.dataGridSource.updateDataGridSource();
     } else {
       data?.forEach((element) {
