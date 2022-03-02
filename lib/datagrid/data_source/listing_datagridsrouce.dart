@@ -298,6 +298,8 @@ class ListingDataGridSource extends DataGridSource {
   /// Building a [DropDown] for combo box column.
   Widget _buildDropDownWidget(String? displayText, CellSubmit submitCell,
       List<String> dropDownMenuItems) {
+    List<String> mutatedDropItems = ['None'] + dropDownMenuItems;
+
     return Container(
       padding: const EdgeInsets.all(8.0),
       alignment: Alignment.centerLeft,
@@ -316,8 +318,7 @@ class ListingDataGridSource extends DataGridSource {
             /// onCellSubmit to commit the new value in single place.
             submitCell();
           },
-          items:
-              dropDownMenuItems.map<DropdownMenuItem<String>>((String value) {
+          items: mutatedDropItems.map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Text(value, style: TextStyle(fontSize: 14)),
@@ -459,8 +460,7 @@ class ListingDataGridSource extends DataGridSource {
 
       /// There should be value from option to see dropdown widget
       if (displayText == null || displayText == "") {
-        options.add('none');
-        mutantDisplayText = 'none';
+        mutantDisplayText = 'None';
       }
       if (showDropdownSearch) {
         return _buildDropDownSearchWidget(

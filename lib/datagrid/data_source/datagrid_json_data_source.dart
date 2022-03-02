@@ -62,13 +62,14 @@ class _JsonDataSourceDataGridState extends State {
     if (list != null && list.length != 0) {
       final Map<String, dynamic> myMap = list[0] as Map<String, dynamic>;
       myMap.forEach((k, v) {
-        bool visible = true;
-        // if (k == "id" || k == "updated_at") {
-        //   visible = false;
-        // }
+        bool allowEditing = true;
+        if (k == "id") {
+          allowEditing = false;
+        }
         gridColumn.add(
           GridColumn(
-            visible: visible,
+            visible: true,
+            allowEditing: allowEditing,
             columnName: k,
             width: 120,
             label: Container(
@@ -175,6 +176,7 @@ class _JsonDataSourceDataGridState extends State {
                             gridLinesVisibility: GridLinesVisibility.both,
                             headerGridLinesVisibility: GridLinesVisibility.both,
                             source: jsonDataGridSource,
+                            footerFrozenColumnsCount: 1,
                             frozenColumnsCount: 4,
                             allowEditing: true,
                             navigationMode: GridNavigationMode.cell,
