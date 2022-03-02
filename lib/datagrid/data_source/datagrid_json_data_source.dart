@@ -63,9 +63,9 @@ class _JsonDataSourceDataGridState extends State {
       final Map<String, dynamic> myMap = list[0] as Map<String, dynamic>;
       myMap.forEach((k, v) {
         bool visible = true;
-        if (k == "id" || k == "updated_at") {
-          visible = false;
-        }
+        // if (k == "id" || k == "updated_at") {
+        //   visible = false;
+        // }
         gridColumn.add(
           GridColumn(
             visible: visible,
